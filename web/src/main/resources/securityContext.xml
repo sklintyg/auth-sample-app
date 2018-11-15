@@ -281,6 +281,14 @@
       </constructor-arg>
       <property name="refreshCheckInterval" value="86400000"/>
 
+      <!-- Setting SITHS as default login method to be redirected to when requesting protected resource. -->
+      <!-- This value _must_ match the entityID specified in idp-sakerhetstjanst.xml.  -->
+      <property name="defaultIDP" value="${sakerhetstjanst.saml.idp.metadata.url}"/>
+
+      <!-- This makes sure the Sakerhetstjanst SP metadata is used by default -->
+      <!-- This value _must_ match the entityID specified in sp-sakerhetstjanst.xml  -->
+      <property name="hostedSPName" value="${sakerhetstjanst.saml.entityId}"/>
+
     </bean>
 
     <!-- SAML Authentication Provider responsible for validating of received SAML messages over SITHS or e-leg class="org.springframework.security.saml.SAMLAuthenticationProvider"-->
