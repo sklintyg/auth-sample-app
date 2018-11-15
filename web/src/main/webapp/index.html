@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="sv" id="ng-app" ng-app="rhsIndexApp">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width">
+
+<base href="/">
+<title>OAuth/SAML exchange example application</title>
+
+</head>
+<style>
+  html, body {
+    height: 100%;
+    margin: 4px;
+    padding: 0px;
+  }
+
+</style>
+
+<body class="index-page" ng-controller="IndexController">
+
+  <div class="index-content-container">
+
+    <!-- header part   -->
+    <div class="index-header-section">Header
+    Du är inloggad som: <span ng-if="user.loggedIn">{{ user.hsaId }}</span><span ng-if="!user.loggedIn">EJ INLOGGAD</span>
+    </div>
+   <button><a href="/saml/login/alias/defaultAlias">Login Inera IdP (SITHS)</a></button>
+
+  </div>
+
+  <!-- bower:js -->
+  <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <!-- endbower -->
+
+  <script type="text/javascript" src="js/index-app.main.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        maven { url "https://build-inera.nordicmedtest.se/nexus/repository/releases/" }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'auth-sample-app'
+
+include ':web'
+
+project(':web').name = 'auth-sample-app-web'

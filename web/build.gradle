@@ -1,0 +1,71 @@
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+apply plugin: 'com.moowork.grunt'
+
+war.rootSpec.exclude "logback.xml"
+
+test {
+    exclude '**/*IT*'
+}
+
+idea {
+    module {
+        excludeDirs += file('node_modules')
+        excludeDirs += file('src/main/webapp/bower_components')
+    }
+}
+
+war.dependsOn createVersionPropertyFile
+
+gretty {
+    contextPath = '/'
+    logbackConfigFile = "${projectDir}/src/main/resources/logback.xml"
+
+    integrationTestTask = null
+    scanInterval = 0
+    httpPort = 9191
+    debugPort = 5014
+    debugSuspend = false
+    fastReload = true
+    inplaceMode = 'hard'
+    enableNaming = true
+
+    jvmArgs = [
+            '-Dspring.profiles.active=dev',
+            '-Dconfig.file=' + projectDir + '/src/main/resources/dev.properties',
+            '-Dconfig.folder=' + projectDir + '/../devops/openshift/demo/config',
+            '-Dcredentials.file=' + projectDir +'/src/main/resources/credentials-dev.properties',
+            '-Dcertificate.folder=' + projectDir + '/../devops/openshift/demo/certifikat'
+    ]
+}
+
+dependencies {
+
+    compile "se.riv.clinicalprocess.healthcond.monitoring:clinicalprocess-healthcond-monitoring-schemas:${internalMonitoringSchemaVersion}"
+    compile "se.riv.itintegration.monitoring:itintegration-monitoring-schemas:${monitoringSchemaVersion}"
+
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${jacksonVersion}"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonYamlVersion}"
+    compile "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    compile "org.springframework.security:spring-security-config:${springSecurityVersion}"
+    compile "org.springframework.security:spring-security-web:${springSecurityVersion}"
+    compile "org.springframework.security.extensions:spring-security-saml2-core:${springSecurityExtensionsVersion}"
+
+    compile "org.springframework.ws:spring-ws-core:${springWsCoreVersion}"
+    compile "org.springframework:spring-aop:${springContextVersion}"
+    compile "wsdl4j:wsdl4j:${wsdl4jVersion}"
+    compile "javax.ws.rs:javax.ws.rs-api:${javaxWsRsApiVersion}"
+
+    compile "org.opensaml:opensaml:${opensamlVersion}"
+    compile "org.opensaml:openws:${openWsVersion}"
+    compile "org.opensaml:xmltooling:${xmlToolingVersion}"
+
+    compile "org.aspectj:aspectjweaver:${aspectjWeaverVersion}"
+
+    compile "org.antlr:ST4:${stAntlr4Version}"
+
+    compileOnly "javax.servlet:javax.servlet-api:${javaxServletVersion}"
+    compileOnly "jstl:jstl:${jstlVersion}"
+
+}
