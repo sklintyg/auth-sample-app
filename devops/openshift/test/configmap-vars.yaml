@@ -1,7 +1,10 @@
 apiVersion: v1
 data:
+
   NTJP_WS_CERTIFICATE_TYPE: JKS
   NTJP_WS_TRUSTSTORE_TYPE: JKS
+  SAKERHETSTJANST_SAML_RESPONSESKEW: "300"
+
 kind: ConfigMap
 metadata:
   name: authsampleapp-test-configmap-envvar
