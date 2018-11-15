@@ -27,4 +27,6 @@ build
 web/.gradle
 node_modules
 web/node_modules
-gradle
+
+*.jks
+*.p12
