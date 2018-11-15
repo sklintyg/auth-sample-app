@@ -4,5 +4,5 @@ data:
   NTJP_WS_TRUSTSTORE_TYPE: JKS
 kind: ConfigMap
 metadata:
-  name: authsampleapp-demo-configmap-envvar
+  name: authsampleapp-test-configmap-envvar
 type: Opaque
