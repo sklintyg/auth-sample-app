@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saml2p:Response Destination="https://authsampleapp-demo-demointyg.app-test1.ind-ocp.sth.basefarm.net/saml/SSO/alias/defaultAlias" ID="_7617e9bfa908b2147ba01dd53afdaf93b86384e9" InResponseTo="a47g3i0gd0f9i1f736d34c2d6918afg" IssueInstant="2018-12-03T14:19:00.590Z" Version="2.0" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://idp.ineradev.org:443/saml</saml2:Issuer><saml2p:Status><saml2p:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/></saml2p:Status><saml2:Assertion ID="_8129d5b3200e8c308b8bfa4c3c6ab952e4b24ddd" IssueInstant="2018-12-03T14:19:00.590Z" Version="2.0" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://idp.ineradev.org:443/saml</saml2:Issuer><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <ds:SignedInfo>
+        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+        <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+        <ds:Reference URI="#_8129d5b3200e8c308b8bfa4c3c6ab952e4b24ddd">
+            <ds:Transforms>
+                <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"><ec:InclusiveNamespaces PrefixList="xsd" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transform>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>WmtODZBOAEG7Au1P99Agasu7KGwZUsJE6GmvDrpNu9k=</ds:DigestValue>
+        </ds:Reference>
+    </ds:SignedInfo>
+    <ds:SignatureValue>
+        WzN1UqKDw9M/1H2Ua5WNMs77uGWQbBBR1XiY5o2y0Tc/GBQJZHyqTqNoN8/liFVDqvL+uAXOKWq4
+        IcyoGs9diqXhJ4lih8eHmeRLa9JmfYdo23Hraewf7Fr+JBllIaPq3yt99wjrmRnL1Q284z2CuyjD
+        MR5SsL/ucrapgDr03g622EnfU+w2tvokl+ETv1aRrizlHZfYhnlLLm3bNujG3xpKXql8sg9REJbs
+        1QhAR3IctqPc1p81pA8Svjnnrp54htooNfi67ufZoULQg3Cs/sCTZp6RHH/4xXYL6egy0xWNYRL1
+        bCZ64RBD4yu8KNBRUi4r2gqjmc8RySY2UdsKnjybuTPY+fPNEPEPg1owlrInMUry4dJ9L7GBy3wB
+        Mq8xpEndqUL4SoOQsSj1J3g7MXdiM8GMxk759AzygeM9PQUYBUqLtSAnSlCA4VT+dSbDgPm/d/EO
+        lZCbgza9+Md+W5ZnhTgL6AZS478pe8vgbHMpg4Dvoa36G1twclerz9eff55NSgGlHHaoIeWxPGtx
+        fzxVmzaEKZuJPGzJ24KYYJjSUcrl6eeywsNAcExTDcSXBoOpTXpfRzne+PH7RUCCRGDa5ubTHtdl
+        htcJ755X58eTnk5N6W3iY2KsJ4sChUlyKVv1mGBvuaevdW+hy8VBxtYOrIk0ZA64l/XJlHrtwV4=
+    </ds:SignatureValue>
+    <ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIHgDCCBWigAwIBAgIPAWV6CRUzT9rLUISVsCYEMA0GCSqGSIb3DQEBDQUAMEAxCzAJBgNVBAYT
+        AlNFMREwDwYDVQQKDAhJbmVyYSBBQjEeMBwGA1UEAwwVU0lUSFMgVHlwZSAzIENBIHYxIFBQMB4X
+        DTE4MDgyNzA2MTg1OVoXDTIwMDgyNzIxNTgwMFoweDELMAkGA1UEBhMCU0UxEjAQBgNVBAcMCVN0
+        b2NraG9sbTERMA8GA1UECgwISW5lcmEgQUIxGTAXBgNVBAMMEGlkcC5pbmVyYWRldi5vcmcxJzAl
+        BgNVBAUTHlQtU0VSVklDRVMtU0UxNjU1NjU1OTQyMzAtMTBSRjCCAiIwDQYJKoZIhvcNAQEBBQAD
+        ggIPADCCAgoCggIBAKdzeYmJPbCMu6ZJ6R1+kip/j2NscZ4GOmdd2blqknp8e4lx0n0ipSD1F68N
+        TwrMrwl5BUm2ZYD5G2+/uAGHEoLGzN+F/PN8K2foUjiiiiDgSuIO5GmrETLFEvwOvn6WkQOo/9Cf
+        w1Dl8zRPRsHZx6vsXCE2OPOaW7ck3SEpTSspOchnuiNX/wSEecUZu3pLDAmojqoBeiS5h3ae/Q2O
+        D7gGtn2tpvinLHCyBLBoQGw4RZfEm5sfB5FRKaq3/ReB8R8PwqJzGfO58x7kRDWnJwnS+xeDjuzi
+        IOmapJTaVAjqQ8Ex1Jl+Zy2GXogruNkq6ki9JtCkDP3mt9g6uDjSfMbtIRWj8KbywpzhPr2/ynFK
+        +CtiEX67ifNtrGYjtzDR47dZkXxNkBjlcx/kV6m7oL+T7lBaz+G91faju5aBtzTQlNlDRSkxXND1
+        kQI/aYcqzaBw0jZj2yNLdConNve/lkfwqgWzEHAEvqXXVPC5cEpfMjMskbGq/e/co6WsQaYITCBD
+        nWwhVXfbh1i8PdbcgPGVf6OrKEHILd5+0xkOfoP9pvAVmGADjXgwKjfIDm2lJ66cxWkbHlMNfuwj
+        Dw4hxjv5ntqcpI+g+xs7kCPZBb5+H1nTXjE6RliN5OHn3+pHo5MuZv1YlQzEgVkL6DKiniH9zDLU
+        NM7Twu2VSYqVSH+xAgMBAAGjggI9MIICOTAfBgNVHSMEGDAWgBRRHKa4ZlbRnuTSkKKFw5DLIZuf
+        xjAdBgNVHQ4EFgQUtnGIdcFhHlFQGVKzm8AOnOGcpaQwDgYDVR0PAQH/BAQDAgWgMFUGA1UdIARO
+        MEwwQAYHKoVwI2MCAjA1MDMGCCsGAQUFBwIBFidodHRwOi8vcnBhcHAuc2l0aHMuc2Uvc2l0aHNy
+        cGF2MXBwLmh0bWwwCAYGZ4EMAQICMBsGA1UdEQQUMBKCEGlkcC5pbmVyYWRldi5vcmcwdwYDVR0f
+        BHAwbjAxoC+gLYYraHR0cDovL2NybDFwcC5zaXRocy5zZS9zaXRoc3R5cGUzY2F2MXBwLmNybDA5
+        oDegNYYzaHR0cDovL2NybDJwcC5zaXRocy5zanVuZXQub3JnL3NpdGhzdHlwZTNjYXYxcHAuY3Js
+        MB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjCB2gYIKwYBBQUHAQEEgc0wgcowIwYIKwYB
+        BQUHMAGGF2h0dHA6Ly9vY3NwMXBwLnNpdGhzLnNlMCsGCCsGAQUFBzABhh9odHRwOi8vb2NzcDJw
+        cC5zaXRocy5zanVuZXQub3JnMDYGCCsGAQUFBzAChipodHRwOi8vYWlhcHAuc2l0aHMuc2Uvc2l0
+        aHN0eXBlM2NhdjFwcC5jZXIwPgYIKwYBBQUHMAKGMmh0dHA6Ly9haWFwcC5zaXRocy5zanVuZXQu
+        b3JnL3NpdGhzdHlwZTNjYXYxcHAuY2VyMA0GCSqGSIb3DQEBDQUAA4ICAQCCJOMeA7qtUglRi6OR
+        qCnodQXtLhprSFWd1ZKU3Z9ta03WTpZpdlXx/WXt9T4IkVszIgpux78q86dvJnQ4WS8NF8QJVxFE
+        HxniUUnHD4C8q3T8vL/oMslUZw0JobNX+jvgfzhtpyJRxc8H9zyjsOdeCEvCF6FPNzNZjrRCAFB5
+        MpSbSj0NP9i7Xi2Z4JCDFJIr3tmlOsuIdtjMqaaoD1qdcCs1SAojZkbKxirFVbUn7oRh1LdNy6h6
+        1IgGRIgOJDLyzF4B9N5Ul80QUHc5x3nqPyNudHD80+hgmxZg6TrNeV45i952Lr+vajVvIBdCf0sF
+        pxEFqHQTuUd+IB5JPI2kKAMxAXp0q7sm9RWxATkym9ZZBnWv8/gzDrJ6DBmHIboM78N1ew1oLjMh
+        Ob8ZbDv2RCb/e5XNfhCnb4/tq+H4KLKKwojg6B/yuSErG7pbtBMJfLIG1Iahn09j/pzkiV3A9JjC
+        8LFFIWbdDr0qc0tH0DB9dYrPFv0XssxfptyBbsXs5p6Ok+33ro2aeiB623E/IcHW2C2J4QI9VI95
+        GiNA2riackeBfhSIrRG64hrE+lzdHvw5zcsy8oOqnVlDxct05oZUxhmov76Eet2+LapJlIm05m5g
+        KTzv+vt4KmF08Qt0Py9wKzGWP7AYuBJmQl2kDu51te8WhD/XdsIoKT6gtA==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature><saml2:Subject><saml2:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">966ac0a9-1813-494a-9d58-fca2e94a62df</saml2:NameID><saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"><saml2:SubjectConfirmationData InResponseTo="a47g3i0gd0f9i1f736d34c2d6918afg" NotOnOrAfter="2018-12-03T14:20:00.590Z" Recipient="https://authsampleapp-demo-demointyg.app-test1.ind-ocp.sth.basefarm.net/saml/SSO/alias/defaultAlias"/></saml2:SubjectConfirmation></saml2:Subject><saml2:Conditions NotOnOrAfter="2018-12-03T15:19:00.590Z"><saml2:AudienceRestriction><saml2:Audience>https://idp.ineradev.org:443/saml</saml2:Audience><saml2:Audience>lupander</saml2:Audience><saml2:Audience>https://authsampleapp-demo-demointyg.app-test1.ind-ocp.sth.basefarm.net</saml2:Audience></saml2:AudienceRestriction></saml2:Conditions><saml2:AttributeStatement><saml2:Attribute FriendlyName="employeeHsaId" Name="http://sambi.se/attributes/1/employeeHsaId" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"><saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">TSTNMT2321000156-1019</saml2:AttributeValue></saml2:Attribute><saml2:Attribute FriendlyName="authnMethod" Name="urn:sambi:names:attribute:authnMethod" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"><saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">urn:oasis:names:tc:SAML:2.0:ac:classes:TLSClient</saml2:AttributeValue></saml2:Attribute></saml2:AttributeStatement><saml2:AuthnStatement AuthnInstant="2018-12-03T14:19:00.126Z" SessionIndex="ed96f44e-a271-4afe-81cf-b02e85506509"><saml2:AuthnContext><saml2:AuthnContextClassRef>http://id.sambi.se/loa/loa3</saml2:AuthnContextClassRef></saml2:AuthnContext></saml2:AuthnStatement></saml2:Assertion></saml2p:Response>

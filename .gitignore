@@ -29,3 +29,8 @@ web/node_modules
 
 *.jks
 *.p12
+
+secret-env.properties
+secret-vars.yaml
+web/out
+bower_components

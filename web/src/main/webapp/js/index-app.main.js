@@ -27,6 +27,12 @@ angular.module('rhsIndexApp')
         $scope.user = {};
         $scope.loggedIn = true;
 
+        $scope.loadConfig = function() {
+            $http.get('/api/config', null).then(function(response) {
+                $scope.config = response.data;
+            })
+        };
+
         $scope.loadUser = function() {
             $http.get('/api/user', null).then(function(response) {
                 if (response.data.authenticated) {
@@ -36,6 +42,27 @@ angular.module('rhsIndexApp')
             });
         };
 
+        $scope.exchangeToken = function() {
+            $http.get('/api/user/exchange').then(function(response) {
+                $scope.token = response.data.userModel.token;
+            });
+        };
+
+        $scope.exchangePreStoredToken = function() {
+            $http.get('/api/user/prestored').then(function(response) {
+                $scope.token = response.data.userModel.token;
+            });
+        }
+
+        $scope.enableOpenButton = function() {
+            return angular.isDefined($scope.intygsId) && $scope.intygsId.length > 4;
+        };
+
+        $scope.openWebcert = function() {
+            $window.open($scope.config.webcertUrl + '/visa/intyg/' + $scope.intygsId, '_blank');
+        };
+
+        $scope.loadConfig();
         $scope.loadUser();
 
     }]);

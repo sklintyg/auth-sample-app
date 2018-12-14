@@ -21,6 +21,7 @@ package se.inera.intyg.authsampleapp.web.controller.dto;
 public class GetConfigResponse {
 
     private String version;
+    private String webcertUrl;
 
     public String getVersion() {
         return version;
@@ -30,9 +31,17 @@ public class GetConfigResponse {
         this.version = version;
     }
 
+    public String getWebcertUrl() {
+        return webcertUrl;
+    }
+
+    public void setWebcertUrl(String webcertUrl) {
+        this.webcertUrl = webcertUrl;
+    }
 
     public static final class GetConfigResponseBuilder {
         private String version;
+        private String webcertUrl;
 
         private GetConfigResponseBuilder() {
         }
@@ -46,9 +55,15 @@ public class GetConfigResponse {
             return this;
         }
 
+        public GetConfigResponseBuilder withWebcertUrl(String webcertUrl) {
+            this.webcertUrl = webcertUrl;
+            return this;
+        }
+
         public GetConfigResponse build() {
             GetConfigResponse getConfigResponse = new GetConfigResponse();
             getConfigResponse.setVersion(version);
+            getConfigResponse.setWebcertUrl(webcertUrl);
             return getConfigResponse;
         }
     }

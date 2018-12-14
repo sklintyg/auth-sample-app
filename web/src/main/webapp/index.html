@@ -24,10 +24,15 @@
   <div class="index-content-container">
 
     <!-- header part   -->
-    <div class="index-header-section">Header
-    Du är inloggad som: <span ng-if="user.loggedIn">{{ user.hsaId }}</span><span ng-if="!user.loggedIn">EJ INLOGGAD</span>
+    <div class="index-header-section">
+    Du är inloggad som: <span ng-if="loggedIn">{{ user.hsaId }}</span><span ng-if="!loggedIn">EJ INLOGGAD</span>
     </div>
-   <button><a href="/saml/login/alias/defaultAlias">Login Inera IdP (SITHS)</a></button>
+    <button><a href="/saml/login/alias/defaultAlias">Login Inera Classic (SITHS)</a></button>
+   <!-- <button><a href="/saml/login/alias/ineratest">Login Inera IdP 1.0 (SITHS)</a></button> -->
+    <br>
+      <button ng-click="exchangePreStoredToken()">Test exchange with pre-stored SAML-authentication</button>
+    <button ng-click="exchangeToken()">Request Token from IdP</button>
+    <input type="text" ng-model="intygsId"><button ng-click="openWebcert()" ng-show="enableOpenButton()">Open Webcert</button>
 
   </div>
 

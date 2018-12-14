@@ -38,6 +38,7 @@ public class ConfigController {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigController.class);
 
     private static final String PROJECT_VERSION_PROPERTY = "project.version";
+    private static final String WEBCERT_URL_PROPERTY = "webcert.url";
 
     /**
      * Note - using Environment injection instead of @Value since the latter has some issues when injected into the
@@ -50,6 +51,7 @@ public class ConfigController {
     public GetConfigResponse getConfig() {
         return GetConfigResponse.GetConfigResponseBuilder.aGetConfigResponse()
                 .withVersion(env.getProperty(PROJECT_VERSION_PROPERTY))
+                .withWebcertUrl(env.getProperty(WEBCERT_URL_PROPERTY))
                 .build();
     }
 }

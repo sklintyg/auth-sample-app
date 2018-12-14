@@ -40,3 +40,11 @@ Efter att en pipeline gått igenom och producerat en image så kan applikationen
             -p STAGE=demo -p DATABASE_NAME=authsampleapp \
             -p HEALTH_URI=/ \
             -o yaml | oc apply -f -
+
+### Rensa config
+
+    oc delete secret authsampleapp-demo-certifikat
+    oc delete secret authsampleapp-demo-env
+    oc delete secret authsampleapp-demo-secret-envvar
+    oc delete configmap authsampleapp-demo-configmap-envvar
+    oc delete configmap authsampleapp-demo-config

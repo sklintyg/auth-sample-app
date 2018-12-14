@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saml2p:Response xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol"
+                 Destination="http://localhost:9191/saml/SSO/alias/sustainsys" ID="id1f70869b70b249888cd7b277363a002b"
+                 IssueInstant="2018-11-30T09:54:13Z" Version="2.0">
+    <saml2:Issuer xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">https://stubidp.sustainsys.com/Metadata
+    </saml2:Issuer>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+            <Reference URI="#id1f70869b70b249888cd7b277363a002b">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                    <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                <DigestValue>ftjUMYPf9xUyodhGAQnz+cV/F8U6XJyksebMkm2WazA=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>
+            SKTGKDaYelDsj9wYaYoZ5K0CIF85w46CEf8qD6sBeQobePsjDgM4M6mYP4LFIqpj6qAlsFKNn7vPjMDOQ2XbsiMScUfvc/zFNe1M1rJBAk43CTRgXJ0cPtWWuTQJ8s+Eu1KTsKfw2uTa9XMMOwAB7BtsZteh4YsyHdw+ILQRX7w=
+        </SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>
+                    MIICFTCCAYKgAwIBAgIQzfcJCkM1YahDtRGYsLphrDAJBgUrDgMCHQUAMCExHzAdBgNVBAMTFnN0dWJpZHAuc3VzdGFpbnN5cy5jb20wHhcNMTcxMjE0MTE1NDUwWhcNMzkxMjMxMjM1OTU5WjAhMR8wHQYDVQQDExZzdHViaWRwLnN1c3RhaW5zeXMuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDSSq8EX46J1yprfaBdh4pWII+/E7ypHM1NjG7mCwFwbkjq2tpSBuoASrQftbjIKqjVzxtxETw802VJu5CJR4d3Zdy5jD8NRTesfaQDazX7iiqisfnxmIdDhtJS0lXeBlj4MipoUW6l8Qsjx7ltZSwdfFLyh+bMqIrwOhMWGs82vQIDAQABo1YwVDBSBgNVHQEESzBJgBCBBNba7KNF5wnXqmYcejn6oSMwITEfMB0GA1UEAxMWc3R1YmlkcC5zdXN0YWluc3lzLmNvbYIQzfcJCkM1YahDtRGYsLphrDAJBgUrDgMCHQUAA4GBAHonBGahlldp7kcN5HGGnvogT8a0nNpM7GMdKhtzpLO3Uk3HyT3AAIKWiSoEv2n1BTalJ/CY/+te/JZPVGhWVzoi5JYytpj5gM0O7RH0a3/yUE8S8YLV2h0a2gsdoMvTRTnTm9CnXezCKqhjYjwsmOZtiCIYuFqX71d/pg5uoJfs
+                </X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+    <saml2p:Status>
+        <saml2p:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
+    </saml2p:Status>
+    <saml2:Assertion xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" ID="_c2c3c722-7cd2-48ae-b06d-d5947b1ff7db"
+                     IssueInstant="2018-11-30T09:54:13Z" Version="2.0">
+        <saml2:Issuer>https://stubidp.sustainsys.com/Metadata</saml2:Issuer>
+        <saml2:Subject>
+            <saml2:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">191212121212</saml2:NameID>
+            <saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+                <saml2:SubjectConfirmationData NotOnOrAfter="2018-11-30T09:56:13Z"
+                                               Recipient="http://localhost:9191/saml/SSO/alias/sustainsys"/>
+            </saml2:SubjectConfirmation>
+        </saml2:Subject>
+        <saml2:Conditions NotOnOrAfter="2018-11-30T09:56:13Z">
+            <saml2:AudienceRestriction>
+                <saml2:Audience>http://localhost:9191</saml2:Audience>
+            </saml2:AudienceRestriction>
+        </saml2:Conditions>
+        <saml2:AuthnStatement AuthnInstant="2018-11-30T09:54:13Z" SessionIndex="42">
+            <saml2:AuthnContext>
+                <saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified
+                </saml2:AuthnContextClassRef>
+            </saml2:AuthnContext>
+        </saml2:AuthnStatement>
+        <saml2:AttributeStatement>
+            <saml2:Attribute Name="Subject_SerialNumber">
+                <saml2:AttributeValue>191212121212</saml2:AttributeValue>
+            </saml2:Attribute>
+            <saml2:Attribute Name="Subject_GivenName">
+                <saml2:AttributeValue>Tolvan</saml2:AttributeValue>
+            </saml2:Attribute>
+            <saml2:Attribute Name="Subject_Surname">
+                <saml2:AttributeValue>Tolvansson</saml2:AttributeValue>
+            </saml2:Attribute>
+            <saml2:Attribute Name="http://sambi.se/attributes/1/employeeHsaId">
+                <saml2:AttributeValue>TSTNMT2321000156-1079</saml2:AttributeValue>
+            </saml2:Attribute>
+        </saml2:AttributeStatement>
+    </saml2:Assertion>
+</saml2p:Response>

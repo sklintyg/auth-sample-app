@@ -30,7 +30,7 @@ import se.inera.intyg.authsampleapp.web.responder.InternalPingForConfigurationRe
 
 @Configuration
 @ComponentScan({
-        "se.inera.intyg.authsampleapp.web"})
+        "se.inera.intyg.authsampleapp"})
 public class ServiceConfig {
 
     @Autowired

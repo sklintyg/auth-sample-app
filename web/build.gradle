@@ -32,10 +32,10 @@ gretty {
 
     jvmArgs = [
             '-Dspring.profiles.active=dev',
-            '-Dconfig.file=' + projectDir + '/src/main/resources/dev.properties',
-            '-Dconfig.folder=' + projectDir + '/../devops/openshift/demo/config',
+            '-Dconfig.file=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/config/authsampleapp.properties',
+            '-Dconfig.folder=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/config',
             '-Dcredentials.file=' + projectDir +'/src/main/resources/credentials-dev.properties',
-            '-Dcertificate.folder=' + projectDir + '/../devops/openshift/demo/certifikat'
+            '-Dcertificate.folder=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/certifikat'
     ]
 }
 
@@ -61,11 +61,15 @@ dependencies {
     compile "org.opensaml:openws:${openWsVersion}"
     compile "org.opensaml:xmltooling:${xmlToolingVersion}"
 
+    compile "org.apache.httpcomponents:httpclient:4.5.1"
+
     compile "org.aspectj:aspectjweaver:${aspectjWeaverVersion}"
 
     compile "org.antlr:ST4:${stAntlr4Version}"
 
     compileOnly "javax.servlet:javax.servlet-api:${javaxServletVersion}"
     compileOnly "jstl:jstl:${jstlVersion}"
+
+    testCompile "org.springframework:spring-test:4.3.17.RELEASE"
 
 }
