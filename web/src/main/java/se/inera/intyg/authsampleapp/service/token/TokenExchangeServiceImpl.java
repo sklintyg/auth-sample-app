@@ -16,6 +16,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.Base64;
 
@@ -45,33 +46,35 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
     @Override
     public String exchange(String samlAssertion) {
 
-        String extractedXml = tokenTransformService.extractUsingRawStringMatcher(samlAssertion);
-        // extractedXml = extractedXml.replaceAll("\n", "");
-        // String base64EncodedAssertion = tokenTransformService.base64Encode(extractedXml);
-        String base64EncodedAssertion = Base64.getUrlEncoder()
-                .withoutPadding()
-                .encodeToString(extractedXml.getBytes(Charset.forName("UTF-8")));
+        try {
+            String extractedXml = tokenTransformService.extractUsingRawStringMatcher(samlAssertion);
+            String base64EncodedAssertion = Base64.getEncoder()
+                    .encodeToString(extractedXml.getBytes(Charset.forName("UTF-8")));
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("client_id", clientId);
-        map.add("client_secret", clientSecret);
-        map.add("grant_type", BEARER_VALUE);
-        map.add("assertion", base64EncodedAssertion);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.add("client_id", clientId);
+            map.add("client_secret", clientSecret);
+            map.add("grant_type", BEARER_VALUE);
+            map.add("assertion", base64EncodedAssertion);
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(tokenExchangeEndpointUrl, request, String.class);
-        LOG.info("Response body: {}", response.getBody());
-        return response.getBody();
+            ResponseEntity<String> response = restTemplate.postForEntity(tokenExchangeEndpointUrl, request, String.class);
+            LOG.info("Response body: {}", response.getBody());
+            return response.getBody();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override
     public String exchangePreStored() {
         try {
-            String assertionBase64 = IOUtils.toString(new ClassPathResource("response.txt").getInputStream());
+            String assertionBase64 = IOUtils.toString(new ClassPathResource("Assertion_encoded_2.txt").getInputStream());
+            String urlEncoded = URLEncoder.encode(assertionBase64, "UTF-8");
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 

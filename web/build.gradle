@@ -41,6 +41,8 @@ gretty {
 
 dependencies {
 
+    compile "commons-io:commons-io:2.5"
+
     compile "se.riv.clinicalprocess.healthcond.monitoring:clinicalprocess-healthcond-monitoring-schemas:${internalMonitoringSchemaVersion}"
     compile "se.riv.itintegration.monitoring:itintegration-monitoring-schemas:${monitoringSchemaVersion}"
 
