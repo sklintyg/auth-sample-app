@@ -25,7 +25,6 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
 
     private static final Logger LOG = LoggerFactory.getLogger(TokenExchangeServiceImpl.class);
 
-    private static final String URL_ENCODED_BEARER_VALUE = "urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Asaml2-bearer";
     private static final String BEARER_VALUE = "urn:ietf:params:oauth:grant-type:saml2-bearer";
 
     @Value("${token.exchange.endpoint.url}")
@@ -44,12 +43,12 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
     private TokenTransformService tokenTransformService;
 
     @Override
-    public String exchange(String samlAssertion) {
+    public String exchange(byte[] samlAssertion) {
 
         try {
-            String extractedXml = tokenTransformService.extractUsingRawStringMatcher(samlAssertion);
-            String base64EncodedAssertion = Base64.getEncoder()
-                    .encodeToString(extractedXml.getBytes(Charset.forName("UTF-8")));
+            byte[] bytes = tokenTransformService.extractFromByteArray(samlAssertion);
+            byte[] assertionBase64 = Base64.getEncoder().encode(bytes);
+            String assertion = new String(assertionBase64, Charset.forName("UTF-8"));
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -58,7 +57,7 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
             map.add("client_id", clientId);
             map.add("client_secret", clientSecret);
             map.add("grant_type", BEARER_VALUE);
-            map.add("assertion", base64EncodedAssertion);
+            map.add("assertion", assertion);
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
@@ -69,29 +68,4 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
             throw new RuntimeException(e.getMessage());
         }
     }
-
-    @Override
-    public String exchangePreStored() {
-        try {
-            String assertionBase64 = IOUtils.toString(new ClassPathResource("Assertion_encoded_2.txt").getInputStream());
-            String urlEncoded = URLEncoder.encode(assertionBase64, "UTF-8");
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-            map.add("client_id", clientId);
-            map.add("client_secret", clientSecret);
-            map.add("grant_type", BEARER_VALUE);
-            map.add("assertion", assertionBase64);
-
-            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-
-            ResponseEntity<String> response = restTemplate.postForEntity(tokenExchangeEndpointUrl, request, String.class);
-            LOG.info("Response body: {}", response.getBody());
-            return response.getBody();
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
 }

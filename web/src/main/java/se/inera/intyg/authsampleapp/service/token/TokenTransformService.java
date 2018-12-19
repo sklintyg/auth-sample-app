@@ -1,9 +1,7 @@
 package se.inera.intyg.authsampleapp.service.token;
 
 public interface TokenTransformService {
-    String extractUsingRawStringMatcher(String samlMessage);
 
-    String extractAndEncode(String samlMessage);
+    byte[] extractFromByteArray(byte[] samlAuthentication);
 
-    String base64Encode(String messageStr);
 }

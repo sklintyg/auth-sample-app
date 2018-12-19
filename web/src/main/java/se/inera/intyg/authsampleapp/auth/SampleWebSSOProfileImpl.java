@@ -36,14 +36,18 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by eriklupander on 2018-11-30.
+ *
+ * ><saml2:Audience>https://idp.ineratest.org:443/saml</saml2:Audience>
+ * <saml2:Audience>http://localhost:9191</saml2:Audience>
+ * <saml2:Audience>lupander</saml2:Audience>
  */
 @Component
 public class SampleWebSSOProfileImpl extends org.springframework.security.saml.websso.WebSSOProfileImpl {
     @Value("${oidc.rp.identity}")
     private String oidcIdentity;
 
-    @Value("${sakerhetstjanst.saml.idp.metadata.url}")
-    private String idpEntityId;
+    // @Value("${sakerhetstjanst.saml.idp.metadata.url}")
+    private String idpEntityId = "https://idp.ineratest.org:443/oidc";
 
     /**
      * Returns AuthnRequest SAML message to be used to demand authentication from an IDP described using

@@ -1,6 +1,7 @@
 package se.inera.intyg.authsampleapp.auth;
 
 import org.opensaml.ws.message.encoder.MessageEncodingException;
+import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.util.XMLHelper;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -9,6 +10,9 @@ import org.springframework.security.saml.SAMLAuthenticationProvider;
 import org.springframework.security.saml.SAMLAuthenticationToken;
 import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.util.SAMLUtil;
+
+import java.nio.charset.Charset;
+import java.util.Base64;
 
 public class SampleSAMLAuthenticationProvider extends SAMLAuthenticationProvider {
 
@@ -20,12 +24,13 @@ public class SampleSAMLAuthenticationProvider extends SAMLAuthenticationProvider
 
         if (principal.isAuthenticated()) {
             try {
-                String messageStr = XMLHelper.nodeToString(SAMLUtil.marshallMessage(context.getInboundSAMLMessage()));
+                // Extract SAMLResponse from inbound message transport
+                byte[] samlResponseBase64 = ((HTTPInTransport) context.getInboundMessageTransport()).getParameterValue("SAMLResponse").getBytes(Charset.forName("UTF-8"));
 
                 // Attach to principal
-                ((UserModel) principal.getPrincipal()).setSamlAuthentication(messageStr);
+                ((UserModel) principal.getPrincipal()).setSamlAuthentication(samlResponseBase64);
 
-            } catch (MessageEncodingException e) {
+            } catch (Exception e) {
                 throw new AuthenticationServiceException(e.getMessage());
             }
         }

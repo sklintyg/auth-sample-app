@@ -14,6 +14,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -37,9 +38,9 @@ public class TokenExchangeServiceImplTest {
         ReflectionTestUtils.setField(testee, "tokenExchangeEndpointUrl", "http://some.url");
         ReflectionTestUtils.setField(testee, "clientId", "CLIENT_ID");
         ReflectionTestUtils.setField(testee, "clientSecret", "CLIENT_SECRET");
-        String responseXml = IOUtils.toString(new ClassPathResource("ineradev/assertion-1.xml").getInputStream());
+        String responseXml = IOUtils.toString(new ClassPathResource("ineradev/samlresponse.txt").getInputStream());
 
         when(restTemplate.postForEntity(anyString(), any(HttpEntity.class), eq(String.class))).thenReturn(ResponseEntity.ok("ok"));
-        String token = testee.exchange(responseXml);
+        String token = testee.exchange(responseXml.getBytes(Charset.forName("UTF-8")));
     }
 }

@@ -1,11 +1,9 @@
 package se.inera.intyg.authsampleapp.auth;
 
-import org.opensaml.xml.util.XMLHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.saml.SAMLCredential;
 import org.springframework.security.saml.userdetails.SAMLUserDetailsService;
-import org.springframework.security.saml.util.SAMLUtil;
 
 public class SampleUserDetailsService implements SAMLUserDetailsService {
 

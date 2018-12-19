@@ -63,11 +63,11 @@ public class ApplicationConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @PostConstruct
-    public Bus init() {
-        bus.setFeatures(new ArrayList<>(Arrays.asList(loggingFeature())));
-        return bus;
-    }
+//    @PostConstruct
+//    public Bus init() {
+//        bus.setFeatures(new ArrayList<>(Arrays.asList(loggingFeature())));
+//        return bus;
+//    }
 
     @Bean
     public ResourceBundleMessageSource messageSource() {

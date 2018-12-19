@@ -5,13 +5,13 @@ apply plugin: 'com.moowork.grunt'
 war.rootSpec.exclude "logback.xml"
 
 test {
-    exclude '**/*IT*'
+    exclude '**\\*IT*'
 }
 
 idea {
     module {
         excludeDirs += file('node_modules')
-        excludeDirs += file('src/main/webapp/bower_components')
+        excludeDirs += file('src\\main\\webapp\\bower_components')
     }
 }
 
@@ -32,10 +32,10 @@ gretty {
 
     jvmArgs = [
             '-Dspring.profiles.active=dev',
-            '-Dconfig.file=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/config/authsampleapp.properties',
-            '-Dconfig.folder=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/config',
+            '-Dconfig.file=/projects/intyg/auth-sample-app/devops/openshift/demo/config/authsampleapp.properties',
+            '-Dconfig.folder=/projects/intyg/auth-sample-app/devops/openshift/demo/config',
             '-Dcredentials.file=' + projectDir +'/src/main/resources/credentials-dev.properties',
-            '-Dcertificate.folder=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/certifikat'
+            '-Dcertificate.folder=/projects/intyg/auth-sample-app/devops/openshift/demo/certifikat'
     ]
 }
 

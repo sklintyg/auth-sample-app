@@ -18,18 +18,20 @@
  */
 package se.inera.intyg.authsampleapp.web.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.inera.intyg.authsampleapp.auth.UserModel;
 import se.inera.intyg.authsampleapp.service.token.TokenExchangeService;
 import se.inera.intyg.authsampleapp.web.controller.dto.UserModelResponse;
+
+import java.io.IOException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -59,18 +61,19 @@ public class UserController {
 
     @RequestMapping(value = "/exchange", method = GET, produces = "application/json")
     public UserModelResponse exchange() {
-        UserModelResponse user = getUser();
-        String token = tokenExchangeService.exchange(user.getUserModel().getSamlAuthentication());
-        user.getUserModel().setTokenAuthentication(token);
-        return user;
-    }
-
-    @RequestMapping(value = "/prestored", method = GET, produces = "application/json")
-    public UserModelResponse prestored() {
-        UserModelResponse user = getUser();
-        String token = tokenExchangeService.exchangePreStored();
-        user.getUserModel().setTokenAuthentication(token);
-        return user;
+        if (!isAuthenticated()) {
+            throw new IllegalStateException("Cannot initiate token exchange without logging in first.");
+        }
+        UserModel userModel = (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String token = tokenExchangeService.exchange(userModel.getSamlAuthentication());
+        try {
+            JsonNode jsonNode = new ObjectMapper().readTree(token);
+            userModel.setAccessToken(jsonNode.get("access_token").textValue());
+            userModel.setRefreshToken(jsonNode.get("refresh_token").textValue());
+            return new UserModelResponse(userModel, true);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     private boolean isAuthenticated() {

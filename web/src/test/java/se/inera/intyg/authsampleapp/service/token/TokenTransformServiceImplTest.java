@@ -16,31 +16,7 @@ public class TokenTransformServiceImplTest {
 
     private TokenTransformServiceImpl testee = new TokenTransformServiceImpl();
 
-//    @Test
-//    public void testBase64ToString() throws IOException {
-//        String base64 = IOUtils.toString(new ClassPathResource("ineradev/assertion.base64").getInputStream());
-//        byte[] decodedBytes = Base64.getMimeDecoder().decode(base64.getBytes(Charset.forName("UTF-8")));
-//        System.out.println(new String(decodedBytes, Charset.forName("UTF-8")));
-//    }
-//
-//    @Test
-//    public void testTransformAssertion() {
-//        try {
-//            String responseXml = IOUtils.toString(new ClassPathResource("ineradev/assertion-1.xml").getInputStream());
-//
-//            String encoded = testee.extractUsingRawStringMatcher(responseXml);
-//            System.out.println(encoded);
-//            encoded = encoded.replaceAll("\\n", "");
-//            System.out.println(encoded);
-//
-//            assertNotNull(encoded);
-//            System.out.println(Base64.getUrlEncoder().withoutPadding().encodeToString(encoded.getBytes(Charset.forName("UTF-8"))));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-    @Test
+  //  @Test
     public void testSAMLBase64ToXml() throws IOException {
         byte[] samlResponseBase64 = IOUtils.toByteArray(new ClassPathResource("working/SAMLResponse.txt").getInputStream());
         byte[] samlResponseXml = IOUtils.toByteArray(new ClassPathResource("working/SAMLResponse_decoded.xml").getInputStream());
@@ -50,7 +26,8 @@ public class TokenTransformServiceImplTest {
         assertTrue(equals);
     }
 
-    @Test
+
+//    @Test
     public void testSAMLBase64ToXml2() throws IOException {
         byte[] samlResponseBase64BA = IOUtils.toByteArray(new ClassPathResource("working/SAMLResponse.txt").getInputStream());
         byte[] samlResponseXmlBA = IOUtils.toByteArray(new ClassPathResource("working/SAMLResponse_decoded.xml").getInputStream());
@@ -66,7 +43,7 @@ public class TokenTransformServiceImplTest {
         Assert.assertEquals(samlResponseXml, decodedAndFixedLineBreaks);
 
         byte[] encoded = Base64.getEncoder().encode(decodedAndFixedLineBreaks.getBytes(Charset.forName("UTF-8")));
-       // String encodedString = org.apache.commons.codec.binary.Base64.encodeBase64String(decodedAndFixedLineBreaks.getBytes(Charset.forName("UTF-8")));
+        // String encodedString = org.apache.commons.codec.binary.Base64.encodeBase64String(decodedAndFixedLineBreaks.getBytes(Charset.forName("UTF-8")));
         byte[] encodeUrl = Base64.getUrlEncoder().encode(decodedAndFixedLineBreaks.getBytes(Charset.forName("UTF-8")));
         Assert.assertEquals(samlResponseBase64, new String(encodeUrl, Charset.forName("UTF-8")));
         //boolean equals = Arrays.equals(decoded, samlResponseXml);
@@ -77,12 +54,76 @@ public class TokenTransformServiceImplTest {
     public void testAssertionXmlToBase64() throws IOException {
 
 
-        byte[] decodedXml = IOUtils.toByteArray(new ClassPathResource("working/SAMLResponse_decoded.xml").getInputStream());
+        //byte[] decodedXml = IOUtils.toByteArray(new ClassPathResource("working/SAMLResponse_decoded.xml").getInputStream());
         byte[] encodedXml = IOUtils.toByteArray(new ClassPathResource("working/Assertion_encoded.txt").getInputStream());
 
-        byte[] encodedByUsXml = Base64.getEncoder().encode(decodedXml);
+        // Decode to XML
+        byte[] decodedAssertion = Base64.getDecoder().decode(encodedXml);
+        String decodedXml = new String(decodedAssertion, Charset.forName("UTF-8"));
+
+        byte[] encodedByUsXml = Base64.getEncoder().encode(decodedAssertion);
 
         boolean equals = Arrays.equals(encodedXml, encodedByUsXml);
         assertTrue(equals);
+    }
+
+    @Test
+    public void testFullFlow() throws IOException {
+        byte[] prefix = "<saml2:Assertion".getBytes(Charset.forName("UTF-8"));
+        byte[] suffix = "</saml2:Assertion>".getBytes(Charset.forName("UTF-8"));
+        byte[] samlResponseBase64BA = IOUtils.toByteArray(new ClassPathResource("working/SAMLResponse.txt").getInputStream());
+        byte[] decodedSamlResponse = Base64.getDecoder().decode(samlResponseBase64BA);
+
+        int first = indexOf(decodedSamlResponse, prefix);
+        int last = indexOf(decodedSamlResponse, suffix);
+        assertTrue(first > 0);
+        assertTrue(first < last);
+
+        byte[] assertion = Arrays.copyOfRange(decodedSamlResponse, first, last + "</saml2:Assertion>".length());
+        assertTrue(assertion.length > 0);
+
+        byte[] assertionEncoded = Base64.getEncoder().encode(assertion);
+
+        byte[] encodedOriginalAssertion = IOUtils.toByteArray(new ClassPathResource("working/Assertion_encoded.txt").getInputStream());
+
+        boolean equals = Arrays.equals(assertionEncoded, encodedOriginalAssertion);
+        assertTrue(equals);
+    }
+
+   // @Test
+    public void testFullFlow2() throws IOException {
+        byte[] prefix = "<saml2:Assertion".getBytes(Charset.forName("UTF-8"));
+        byte[] suffix = "</saml2:Assertion>".getBytes(Charset.forName("UTF-8"));
+        byte[] samlResponseBase64BA = IOUtils.toByteArray(new ClassPathResource("eriks/samlresponse.txt").getInputStream());
+        byte[] decodedSamlResponse = Base64.getDecoder().decode(samlResponseBase64BA);
+
+        int first = indexOf(decodedSamlResponse, prefix);
+        int last = indexOf(decodedSamlResponse, suffix);
+        assertTrue(first > 0);
+        assertTrue(first < last);
+
+        byte[] assertion = Arrays.copyOfRange(decodedSamlResponse, first, last + "</saml2:Assertion>".length());
+        assertTrue(assertion.length > 0);
+
+        byte[] assertionEncoded = Base64.getEncoder().encode(assertion);
+
+        byte[] encodedOriginalAssertion = IOUtils.toByteArray(new ClassPathResource("working/Assertion_encoded.txt").getInputStream());
+
+        boolean equals = Arrays.equals(assertionEncoded, encodedOriginalAssertion);
+        assertTrue(equals);
+    }
+
+    private int indexOf(byte[] outerArray, byte[] smallerArray) {
+        for(int i = 0; i < outerArray.length - smallerArray.length+1; ++i) {
+            boolean found = true;
+            for(int j = 0; j < smallerArray.length; ++j) {
+                if (outerArray[i+j] != smallerArray[j]) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) return i;
+        }
+        return -1;
     }
 }

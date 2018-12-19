@@ -26,8 +26,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import se.inera.intyg.authsampleapp.web.responder.InternalPingForConfigurationResponderImpl;
-
 @Configuration
 @ComponentScan({
         "se.inera.intyg.authsampleapp"})
@@ -39,14 +37,4 @@ public class ServiceConfig {
     @Autowired
     private Bus bus;
 
-    @Autowired
-    private InternalPingForConfigurationResponderImpl internalPingForConfigurationResponder;
-
-
-    @Bean
-    public EndpointImpl pingForConfigurationEndpoint() {
-        EndpointImpl endpoint = new EndpointImpl(bus, internalPingForConfigurationResponder);
-        endpoint.publish("/internal-ping-for-configuration");
-        return endpoint;
-    }
 }

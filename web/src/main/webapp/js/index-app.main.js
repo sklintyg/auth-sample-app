@@ -26,6 +26,7 @@ angular.module('rhsIndexApp')
 
         $scope.user = {};
         $scope.loggedIn = true;
+        $scope.intygsId = '9020fbb9-e387-40b0-ba75-ac2746e4736b';
 
         $scope.loadConfig = function() {
             $http.get('/api/config', null).then(function(response) {
@@ -45,6 +46,7 @@ angular.module('rhsIndexApp')
         $scope.exchangeToken = function() {
             $http.get('/api/user/exchange').then(function(response) {
                 $scope.token = response.data.userModel.token;
+                 $scope.loadUser();
             });
         };
 
@@ -52,10 +54,18 @@ angular.module('rhsIndexApp')
             $http.get('/api/user/prestored').then(function(response) {
                 $scope.token = response.data.userModel.token;
             });
-        }
+        };
 
         $scope.enableOpenButton = function() {
             return angular.isDefined($scope.intygsId) && $scope.intygsId.length > 4;
+        };
+
+        $scope.authenticate = function() {
+            $http.get('http://192.168.1.10:9088/jwtauth', {
+                headers: {'Authorization': 'Bearer:' + $scope.user.accessToken}
+               }).then(function() {
+                    $scope.openWebcert();
+                })
         };
 
         $scope.openWebcert = function() {
