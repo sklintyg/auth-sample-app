@@ -25,7 +25,7 @@ angular.module('rhsIndexApp')
         'use strict';
 
         $scope.user = {};
-        $scope.loggedIn = true;
+        $scope.loggedIn = false;
         $scope.intygsId = '9020fbb9-e387-40b0-ba75-ac2746e4736b';
 
         $scope.loadConfig = function() {
@@ -39,6 +39,8 @@ angular.module('rhsIndexApp')
                 if (response.data.authenticated) {
                     $scope.user = response.data.userModel;
                     $scope.loggedIn = true;
+                } else {
+                    $scope.loggedIn = false;
                 }
             });
         };
@@ -62,14 +64,15 @@ angular.module('rhsIndexApp')
 
         $scope.authenticate = function() {
             $http.get($scope.config.webcertUrl + '/oauth/token', {
-                headers: {'Authorization': 'Bearer:' + $scope.user.accessToken}
+                headers: {'Authorization': 'Bearer: ' + $scope.user.accessToken},
+                withCredentials: true
                }).then(function() {
                     $scope.openWebcert();
                 })
         };
 
         $scope.openWebcert = function() {
-            $window.open($scope.config.webcertUrl + '/visa/intyg/' + $scope.intygsId, '_blank');
+            $window.location($scope.config.webcertUrl + '/visa/intyg/' + $scope.intygsId);
         };
 
         $scope.loadConfig();

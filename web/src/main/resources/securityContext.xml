@@ -39,6 +39,7 @@
 
     <!-- Everything under /app such as js, css, images etc is ok to access at any time -->
     <security:http security="none" pattern="/app/**"/>
+    <security:http security="none" pattern="/css/**"/>
     <security:http security="none" pattern="/img/**"/>
     <security:http security="none" pattern="/js/**"/>
     <security:http security="none" pattern="/fonts/**"/>
