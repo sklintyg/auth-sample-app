@@ -46,7 +46,7 @@ angular.module('rhsIndexApp')
         $scope.exchangeToken = function() {
             $http.get('/api/user/exchange').then(function(response) {
                 $scope.token = response.data.userModel.token;
-                 $scope.loadUser();
+                $scope.loadUser();
             });
         };
 
@@ -61,7 +61,7 @@ angular.module('rhsIndexApp')
         };
 
         $scope.authenticate = function() {
-            $http.get('http://192.168.1.10:9088/jwtauth', {
+            $http.get($scope.config.webcertUrl + '/oauth/token', {
                 headers: {'Authorization': 'Bearer:' + $scope.user.accessToken}
                }).then(function() {
                     $scope.openWebcert();
