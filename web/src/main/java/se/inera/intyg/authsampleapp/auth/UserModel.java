@@ -2,6 +2,10 @@ package se.inera.intyg.authsampleapp.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Example of a User Principal carrying the HSA-id identifying the user as well as the original SAML response as well
+ * as OAuth access- and refresh tokens.
+ */
 public class UserModel {
 
     private String hsaId;

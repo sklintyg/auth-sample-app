@@ -18,23 +18,15 @@
  */
 package se.inera.intyg.authsampleapp.config;
 
-import org.apache.cxf.Bus;
-import org.apache.cxf.jaxws.EndpointImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-@ComponentScan({
-        "se.inera.intyg.authsampleapp"})
+//@Configuration
+//@ComponentScan({
+//        "se.inera.intyg.authsampleapp"})
 public class ServiceConfig {
-
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    @Autowired
-    private Bus bus;
+//
+//    @Autowired
+//    private ApplicationContext applicationContext;
+//
+//    @Autowired
+//    private Bus bus;
 
 }

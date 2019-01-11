@@ -34,20 +34,34 @@ import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.websso.WebSSOProfileOptions;
 import org.springframework.stereotype.Component;
 
+// CHECKSTYLE:OFF JavadocStyle
+
 /**
- * Created by eriklupander on 2018-11-30.
+ * Custom WebSSOProfileImpl subclass that modifies the audience restriction(s) of the outgoing SAML AuthnReq so the
+ * returned SAML response (after successful authentication) can be used for a RFC7522 exchange.
  *
- * ><saml2:Audience>https://idp.ineratest.org:443/saml</saml2:Audience>
- * <saml2:Audience>http://localhost:9191</saml2:Audience>
- * <saml2:Audience>lupander</saml2:Audience>
+ * The client_id of the SP application needs to be present as an audience. E.g: If our client_id is "journalsystemet",
+ * the conditions element needs to contain a corresponding audience restriction:
+ * <pre>
+ * {@code
+ *  <saml2:Audience>https://idp.ineratest.org:443/saml</saml2:Audience>
+ *  <saml2:Audience>http://localhost:9191</saml2:Audience>
+ *  <saml2:Audience>journalsystemet</saml2:Audience>
+ * }
+ * </pre>
+ *
+ * IDP, SP and ClientID respectively.
  */
+
+// CHECKSTYLE:ON JavadocStyle
 @Component
 public class SampleWebSSOProfileImpl extends org.springframework.security.saml.websso.WebSSOProfileImpl {
+
     @Value("${oidc.rp.identity}")
     private String oidcIdentity;
 
-    // @Value("${sakerhetstjanst.saml.idp.metadata.url}")
-    private String idpEntityId = "https://idp.ineratest.org:443/oidc";
+    @Value("${sakerhetstjanst.saml.idp.metadata.url}")
+    private String idpEntityId;
 
     /**
      * Returns AuthnRequest SAML message to be used to demand authentication from an IDP described using
@@ -56,18 +70,24 @@ public class SampleWebSSOProfileImpl extends org.springframework.security.saml.w
      * This overridden version explicitly sets audience restriction conditions to the target IdP EntityId and our
      * OIDC RP id for facilitating a subsequent token exchange per RFC7522.
      *
-     * @param context           message context
-     * @param options           preferences of message creation
-     * @param assertionConsumer assertion consumer where the IDP should respond
-     * @param bindingService    service used to deliver the request
+     * @param context
+     *            message context
+     * @param options
+     *            preferences of message creation
+     * @param assertionConsumer
+     *            assertion consumer where the IDP should respond
+     * @param bindingService
+     *            service used to deliver the request
      * @return authnRequest ready to be sent to IDP
-     * @throws SAMLException             error creating the message
-     * @throws MetadataProviderException error retreiving metadata
+     * @throws SAMLException
+     *             error creating the message
+     * @throws MetadataProviderException
+     *             error retreiving metadata
      */
     @Override
     protected AuthnRequest getAuthnRequest(SAMLMessageContext context, WebSSOProfileOptions options,
-                                           AssertionConsumerService assertionConsumer,
-                                           SingleSignOnService bindingService) throws SAMLException, MetadataProviderException {
+            AssertionConsumerService assertionConsumer,
+            SingleSignOnService bindingService) throws SAMLException, MetadataProviderException {
 
         AuthnRequest authnRequest = super.getAuthnRequest(context, options, assertionConsumer, bindingService);
         authnRequest.setConditions(buildConditions());

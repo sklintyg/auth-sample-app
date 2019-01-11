@@ -11,19 +11,24 @@ import org.springframework.security.saml.SAMLCredential;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Maps attributes on an incoming SAML response onto an instance of this class.
+ *
+ * In this context, only the http://sambi.se/attributes/1/employeeHsaId is handled.
+ */
 public class SakerhetstjanstAssertion {
 
     // Användarens HSA-ID.
-    public static final String HSA_ID_ATTRIBUTE = "http://sambi.se/attributes/1/employeeHsaId";
+    private static final String HSA_ID_ATTRIBUTE = "http://sambi.se/attributes/1/employeeHsaId";
 
     // Användarens HSA-ID, legacy.
-    public static final String HSA_ID_ATTRIBUTE_LEGACY = "urn:sambi:names:attribute:employeeHsaId";
+    private static final String HSA_ID_ATTRIBUTE_LEGACY = "urn:sambi:names:attribute:employeeHsaId";
 
     private String hsaId;
     private String authenticationScheme;
 
     /* Constructor taking an Assertion object */
-    public SakerhetstjanstAssertion(Assertion assertion) {
+    SakerhetstjanstAssertion(Assertion assertion) {
         if (assertion.getAttributeStatements() != null) {
             for (AttributeStatement attributeStatement : assertion.getAttributeStatements()) {
                 extractAttributes(attributeStatement.getAttributes());

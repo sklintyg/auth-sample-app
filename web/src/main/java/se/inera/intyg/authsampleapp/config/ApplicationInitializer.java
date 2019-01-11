@@ -18,7 +18,6 @@
  */
 package se.inera.intyg.authsampleapp.config;
 
-import org.apache.cxf.transport.servlet.CXFServlet;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -70,11 +69,6 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         FilterRegistration.Dynamic hiddenHttpMethodFilter = servletContext.addFilter("hiddenHttpMethodFilter",
                 HiddenHttpMethodFilter.class);
         hiddenHttpMethodFilter.addMappingForUrlPatterns(null, false, "/*");
-
-        // CXF services filter
-        ServletRegistration.Dynamic cxfServlet = servletContext.addServlet("services", new CXFServlet());
-        cxfServlet.setLoadOnStartup(1);
-        cxfServlet.addMapping("/services/*");
 
         // Listeners for session audit logging
         servletContext.addListener(new HttpSessionEventPublisher());
