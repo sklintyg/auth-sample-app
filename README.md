@@ -107,20 +107,25 @@ The response from the token exchange is a JSON document containing the actual ac
     }
 In the _/web/src/main/java/se/inera/intyg/authsampleapp/web/controller/UserController.java_, we're storing the access_token and the refresh_token in the session.
 
-The way to proceed at submit the access_token to webcert from here may vary. The example application POSTs a standard HTML form with form parameters to submit the access_token along with the already known "integration parameters".
+The way to proceed for submitting the access_token to Webcert from here may vary. The overall objective is to read the Set-Cookie: SESSION=..... from the HTTP response from Webcert, that the browser can store and use for subsequent calls to Webcert.
 
-Given that the demo application / journaling system are running on separate domains, we do need to pay attention to CORS and that SESSION cookies set on a CORS-enabled request to another domain may be rejected by the browser.
+##### 5.1 FORM POST
+The example application POSTs a standard HTML form to _https://path.to.webcert/oauth/token_ with content-type _application/x-www-form-urlencoded_ with the _access_token_ along with the already known "integration parameters" as form parameters.
 
-     
+TODO show form code
 
-6. Autentiserar användaren mot Webcert med access_token
-7. Webcert kontrollerar signatur av JWS mot publik nyckel (https://idp.ineratest.org:443/oidc/jwks.json)?
-8. Webcert anropar
+TBD In the demo application, we're submitting the intygs-id (the resource we want to access in Webcert) using a form parameter while the URL is https://path.to.webcert/oauth/token
 
-    https://idp.ineratest.org:443/oidc/token/introspect 
-    
-med <token> för att verifiera dess äkthet. Denna endpoint kräver ej clientId/secret.
+##### 5.2 Authorization bearer header / XHR
+Given that the demo application / journaling system are running on another domain than Webcert, we need to pay attention to Cross-Origin Resource Sharing (CORS) and whether SESSION cookies set on a CORS-enabled XHR request to another domain may be rejected by the browser. 
 
-9. Webcert kontrollerar svaret och om OK fortsätter auktorisering och inloggning.
+Please refer to https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS?redirectlocale=en-US&redirectslug=HTTP_access_control#Requests_with_credentials on how to use XHR with credentials in a cross-domain scenario.
 
-Klart
+At this time, we recommend **not** pursuing this route since we havn't been able to test this properly in a cross-domain scenario. Using XHR + Bearer on the same domain works fine though, but that should be of limited use for systems integrating with Webcert.
+
+Another variant is to let Webcert listen to /visa/intyg/{intygsId}/oauth or similar where the intygs-id is part of the PATH rather than specified as a form parameter.
+
+
+
+### 6. Refresh token
+Once the access_token has expired, a new one can be obtained using the refresh_token.

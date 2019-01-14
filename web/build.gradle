@@ -32,19 +32,16 @@ gretty {
 
     jvmArgs = [
             '-Dspring.profiles.active=dev',
-            '-Dconfig.file=/projects/intyg/auth-sample-app/devops/openshift/demo/config/authsampleapp.properties',
-            '-Dconfig.folder=/projects/intyg/auth-sample-app/devops/openshift/demo/config',
+            '-Dconfig.file=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/config/authsampleapp.properties',
+            '-Dconfig.folder=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/config',
             '-Dcredentials.file=' + projectDir +'/src/main/resources/credentials-dev.properties',
-            '-Dcertificate.folder=/projects/intyg/auth-sample-app/devops/openshift/demo/certifikat'
+            '-Dcertificate.folder=/Users/eriklupander/intyg/auth-sample-app/devops/openshift/demo/certifikat'
     ]
 }
 
 dependencies {
 
     compile "commons-io:commons-io:2.5"
-
-    compile "se.riv.clinicalprocess.healthcond.monitoring:clinicalprocess-healthcond-monitoring-schemas:${internalMonitoringSchemaVersion}"
-    compile "se.riv.itintegration.monitoring:itintegration-monitoring-schemas:${monitoringSchemaVersion}"
 
     compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${jacksonVersion}"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
