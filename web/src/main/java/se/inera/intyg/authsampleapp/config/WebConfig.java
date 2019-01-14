@@ -39,7 +39,7 @@ import java.util.Properties;
 @EnableWebMvc
 @Configuration
 @ComponentScan({
-        "se.inera.intyg.authsampleapp.web" })
+        "se.inera.intyg.authsampleapp.web", "se.inera.intyg.authsampleapp.service" })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     private static final int SECONDS_IN_HOUR = 3600;

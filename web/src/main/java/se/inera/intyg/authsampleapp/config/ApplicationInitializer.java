@@ -41,8 +41,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
 
         appContext.register(
-                ApplicationConfig.class,
-                ServiceConfig.class);
+                ApplicationConfig.class);
 
         servletContext.addListener(new ContextLoaderListener(appContext));
 

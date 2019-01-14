@@ -126,6 +126,5 @@ At this time, we recommend **not** pursuing this route since we havn't been able
 Another variant is to let Webcert listen to /visa/intyg/{intygsId}/oauth or similar where the intygs-id is part of the PATH rather than specified as a form parameter.
 
 
-
 ### 6. Refresh token
 Once the access_token has expired, a new one can be obtained using the refresh_token.
