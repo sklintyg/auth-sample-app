@@ -16,8 +16,6 @@
         margin: 4px;
         padding: 0px;
     }
-
-
 </style>
 
 <body class="index-page" ng-controller="IndexController">
@@ -29,12 +27,15 @@
     <div>Webcert URL: {{ config.webcertUrl }}</div>
     <div ng-if="loggedIn">Du är inloggad som: {{ user.hsaId }}</div>
     <!-- <a href="/saml/login/alias/defaultAlias">Login Inera Classic (SITHS)</a> -->
-    <button type="button" class="btn btn-default"><a href="/saml/login/alias/defaultAlias">Login Inera IdP 1.0 (SITHS)</a></button>
-    <button type="button" class="btn btn-default" ng-if="loggedIn" ng-click="exchangeToken()">Request Token from IdP</button>
-    <button type="button" class="btn btn-default" ng-if="loggedIn" ng-click="exchangeToken()"><a href="/saml/logout">Logga ut</a></button>
+    <button type="button" class="btn btn-default"><a href="/saml/login/alias/defaultAlias">Login Inera IdP 1.0
+        (SITHS)</a></button>
+    <button type="button" class="btn btn-default" ng-if="loggedIn" ng-click="exchangeToken()">Request Token from IdP
+    </button>
+    <button type="button" class="btn btn-default" ng-if="loggedIn" ng-click="exchangeToken()"><a href="/saml/logout">Logga
+        ut</a></button>
     <br>
-            OAuth token<br>
-            <textarea ng-model="user.accessToken" rows="20" cols="40"></textarea>
+    OAuth token<br>
+    <textarea ng-model="user.accessToken" rows="20" cols="40"></textarea>
 
     <div class="well">
         <form action="http://192.168.1.10:9088/oauth/token" method="post" enctype="application/x-www-form-urlencoded">
@@ -43,7 +44,8 @@
             <input id="intygs_id" type="text" name="intygs_id" ng-model="intygsId" class="form-control">
 
             <label for="access_token">Access token</label>
-            <textarea id="access_token" rows="20" cols="60" name="access_token" ng-model="user.accessToken" class="form-control"></textarea><br>
+            <textarea id="access_token" rows="20" cols="60" name="access_token" ng-model="user.accessToken"
+                      class="form-control"></textarea><br>
 
             <input type="submit" value="Logga in" class="form-control">
         </form>

@@ -40,28 +40,20 @@ gretty {
 }
 
 dependencies {
-
-
-    //compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${jacksonVersion}"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
-    //compile "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    compile "org.springframework:spring-aop:${springContextVersion}"
     compile "org.springframework:spring-webmvc:${springContextVersion}"
     compile "org.springframework.security:spring-security-config:${springSecurityVersion}"
     compile "org.springframework.security:spring-security-web:${springSecurityVersion}"
     compile "org.springframework.security.extensions:spring-security-saml2-core:${springSecurityExtensionsVersion}"
 
-    compile "org.springframework:spring-aop:${springContextVersion}"
     compile "org.opensaml:opensaml:${opensamlVersion}"
     //compile "org.opensaml:openws:${openWsVersion}"
     //compile "org.opensaml:xmltooling:${xmlToolingVersion}"
 
-    compile "org.apache.httpcomponents:httpclient:4.5.1"
-
+    compile "org.apache.httpcomponents:httpclient:${apacheHttpClientVersion}"
     compile "org.aspectj:aspectjweaver:${aspectjWeaverVersion}"
-    //compileOnly "javax.servlet:javax.servlet-api:${javaxServletVersion}"
-    //compileOnly "jstl:jstl:${jstlVersion}"
 
-    testCompile "commons-io:commons-io:2.5"
-    testCompile "org.springframework:spring-test:4.3.17.RELEASE"
-
+    testCompile "commons-io:commons-io:${commonsIoVersion}"
+    testCompile "org.springframework:spring-test:${springContextVersion}"
 }
