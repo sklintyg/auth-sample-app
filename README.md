@@ -67,9 +67,9 @@ Your actual URL may vary depending on which Inera IdP your application needs to 
 The exchange request is a POST having the following characteristics:
 
 **Content-Type:** application/x-www-form-urlencoded
+
+
 **Four form parameters:**
-
-
 - client_id=<client id, e.g. same as "journalsystemet">
 - client_secret=<the password for "journalsystemet">
 - assertion=<the SAML assertion, Base64 encoded>
