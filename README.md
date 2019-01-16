@@ -118,22 +118,23 @@ In the _/web/src/main/java/se/inera/intyg/authsampleapp/web/controller/UserContr
 
 The way to proceed for submitting the access_token to Webcert from here may vary. The overall objective is to read the Set-Cookie: SESSION=..... from the HTTP response from Webcert, that the browser can store and use for subsequent calls to Webcert.
 
-##### 5.1 FORM POST
+In both variants below the journaling system needs to perform an HTTP POST against https://webcert.intygstjanster.se/oauth/token. Note that the actual URL may vary if you're target a non-production environment.
+
+The path _/oauth/token_ may evolve into somethinh more akin to pre WC 6.3 deep-integration URLs such as a POST to /visa/intyg/{intygsId}/oauth or similar where the intygs-id is part of the PATH rather than specified as a form parameter.
+
+#### 5.1 Form POST
 The example application POSTs a standard HTML form to _https://path.to.webcert/oauth/token_ with content-type _application/x-www-form-urlencoded_ with the _access_token_ along with the already known "integration parameters" as form parameters.
 
 TODO show form code
 
 TBD In the demo application, we're submitting the intygs-id (the resource we want to access in Webcert) using a form parameter while the URL is https://path.to.webcert/oauth/token
 
-##### 5.2 Authorization bearer header / XHR
+#### 5.2 Authorization bearer header / XHR
 Given that the demo application / journaling system are running on another domain than Webcert, we need to pay attention to Cross-Origin Resource Sharing (CORS) and whether SESSION cookies set on a CORS-enabled XHR request to another domain may be rejected by the browser. 
 
 Please refer to https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS?redirectlocale=en-US&redirectslug=HTTP_access_control#Requests_with_credentials on how to use XHR with credentials in a cross-domain scenario.
 
 At this time, we recommend **not** pursuing this route since we havn't been able to test this properly in a cross-domain scenario. Using XHR + Bearer on the same domain works fine though, but that should be of limited use for systems integrating with Webcert.
-
-Another variant is to let Webcert listen to /visa/intyg/{intygsId}/oauth or similar where the intygs-id is part of the PATH rather than specified as a form parameter.
-
 
 ### 6. Refresh token
 Once the access_token has expired, a new one can be obtained using the refresh_token.
