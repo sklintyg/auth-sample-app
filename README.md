@@ -22,8 +22,8 @@ The custom WebSSOProfile class adds extra audience restrictions, e.g:
 
 The the "journalsystemet" (or rather the actual value) client_id is assigned by the IdP to the SP.
 
-### 2. Save the SAMLResponse and stores it as Base64 on the user session.
-Since the RF7522 exchange requires the SP to present a SAML assertion issued by the IdP, we need to extract the SAMLResponse from the SAML authentication described above.
+### 2. Save the SAMLResponse and store it as Base64 on the user session.
+Since the RFC7522 exchange requires the SP to present a SAML assertion issued by the IdP, we need to extract the SAMLResponse from the SAML authentication described above.
 
 In the demo application, this is handled by the class _/web/src/main/java/se/inera/intyg/authsampleapp/auth/SampleSAMLAuthenticationProvider.java_ which subclasses the default SAMLAuthenticationProvider.
 
@@ -43,7 +43,15 @@ From here on, the SAMLResponse is available on our user principal, which we'll n
 ### 3. Extract the <saml2:Assertion>
 Again, we need to be really careful when extracting the Assertion element. For example, transforming the SAMLResponse to plain text, loading it into a DOM, using XPath to extract the Assertion and finally writing it to a new string, will almost certainly mess up line-breaks, spacing or formatting in such a way that signature validation won't pass.
 
-In the demo application, we're using a brute-force approach where we search the SAMLResponse byte array for the index of the known sequence of bytes for "<saml2:Assertion>" and  "</saml2:Assertion>". Given these two indicies, the full Assertion element can be extracted from the SAMLResponse with tampering with any contents.
+In the demo application, we're using a brute-force approach where we search the SAMLResponse byte array for the index of the known sequence of bytes for "<saml2:Assertion>" and  "</saml2:Assertion>". Given these two indicies, the full Assertion element can be extracted from the SAMLResponse with tampering with any contents:
+
+        ... omitted for brevity ...
+        byte[] decodedSamlResponse = Base64.getDecoder().decode(samlResponse);
+    
+        int first = indexOf(decodedSamlResponse, ASSERTION_PREFIX);
+        int last = indexOf(decodedSamlResponse, ASSERTION_SUFFIX);
+        return Arrays.copyOfRange(decodedSamlResponse, first, last + "</saml2:Assertion>".length());
+    }    
 
 This is handled in the service class _/web/src/main/java/se/inera/intyg/authsampleapp/service/token/TokenTransformServiceImpl.java_
 
@@ -61,10 +69,11 @@ The exchange request is a POST having the following characteristics:
 **Content-Type:** application/x-www-form-urlencoded
 **Four form parameters:**
 
-client_id=<client id, e.g. same as "journalsystemet">
-client_secret=<the password for "journalsystemet">
-assertion=<the SAML assertion, Base64 encoded>
-grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer
+
+- client_id=<client id, e.g. same as "journalsystemet">
+- client_secret=<the password for "journalsystemet">
+- assertion=<the SAML assertion, Base64 encoded>
+- grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer
 
 **IMPORTANT!!!!** 
 In addition to being base64-encoded, the Assertion must _also_ be URL-encoded _after_ being Base64-encoded. Do NOT confuse this with base64url-encoding which is something different.
