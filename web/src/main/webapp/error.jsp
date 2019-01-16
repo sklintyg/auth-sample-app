@@ -41,12 +41,12 @@
         <c:choose>
 
           <c:when test="${param.reason eq \"login.failed\"}">
-            <h1 class="page-header">Rehabstöd</h1>
+            <h1 class="page-header">Auth sample application</h1>
             <div class="alert alert-danger">Inloggningen misslyckades. Gå tillbaka till <a href="/">startsidan</a>.</div>
           </c:when>
 
           <c:otherwise>
-            <h1 class="page-header">Rehabstöd</h1>
+            <h1 class="page-header">Auth sample application</h1>
             <div class="alert alert-danger">Ett tekniskt fel har uppstått. Gå tillbaka till <a href="/">startsidan</a>.</div>
           </c:otherwise>
         </c:choose>
