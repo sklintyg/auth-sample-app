@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor entityID="https://idp.ineratest.org:443/saml" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+                     xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+                     xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute"
+                     xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">
+    <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+            <ds:Reference URI="">
+                <ds:Transforms>
+                    <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                    <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                </ds:Transforms>
+                <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                <ds:DigestValue>+0q/AYSMawb/NGxGheDiESeg7mS/fsJAWYKVU1lPdJg=</ds:DigestValue>
+            </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>
+            RdeyvXZppdVKD/en46JqaPZMyjsqvTBeC7Zm/pwjv5BRnZWLewul3j6RRNERe/yrEzDLBVtXaYMv
+            YP2YO63T1mYe5JsENmc+YYiCDpZSgHhu2d0pBUJxCOTPdhR6L8si9bvXpKhwd38SI2+v+Z+SK2CS
+            IZ8RTuPcjOIAZw0+YUKPdzpX32V7QVJQwoThWwMJO5Dh19Zr+WEbPOdtg26XlFpMpj2iRYk7+273
+            4YJve1z9JED8n9G9EFqCYHHkuo8MN6lAA0Y6KZPi2xLSJ6y8kmc4Glwk6G5gflJF+8IHHnqsYMGG
+            X/9WbOrUwA5OwRCXx4/9GrvWi6xHXPhDzbzj5VgZqdXtd/ZeIgSTP4jdQlOfzltGoBgNqv3eZB0h
+            /AkoHaIs3lxE18tEV4nBPRvm6vZZJZVaqyv6wdj2nuzBLwS1caP2wRss1/EM33N4gowTdAWR/qip
+            reULpWIFzVLVIZnu4GT+Qthca8vvTd8CwrxafZmxOV1oL1hg78prmWhDPSqYXsFA0yYIO128J/U+
+            DcsyUeS3dwC2ccaOEiVjet8QbglnqGYfUzC4C/zT45D7rHs3+eYpLtLAsofnr4ong16ZBmhTBh1T
+            7pVINHW1jjI/m+4CcZxyL0eSigEYwzVYE5+Kv/kQ6yQ0Fwrzzdf0LoZMvYRlnxUG+agLymiHfj0=
+        </ds:SignatureValue>
+        <ds:KeyInfo>
+            <ds:X509Data>
+                <ds:X509Certificate>MIIHgjCCBWqgAwIBAgIPAWRe8amcfuBzBHtJ6qI/MA0GCSqGSIb3DQEBDQUAMEAxCzAJBgNVBAYT
+                    AlNFMREwDwYDVQQKDAhJbmVyYSBBQjEeMBwGA1UEAwwVU0lUSFMgVHlwZSAzIENBIHYxIFBQMB4X
+                    DTE4MDcwMzA3MDA1MFoXDTIwMDcwMzIxNTgwMFoweTELMAkGA1UEBhMCU0UxEjAQBgNVBAcMCVN0
+                    b2NraG9sbTERMA8GA1UECgwISW5lcmEgQUIxGjAYBgNVBAMMEWlkcC5pbmVyYXRlc3Qub3JnMScw
+                    JQYDVQQFEx5ULVNFUlZJQ0VTLVNFMTY1NTY1NTk0MjMwLTEwUjkwggIiMA0GCSqGSIb3DQEBAQUA
+                    A4ICDwAwggIKAoICAQDDxgsI1N9E1PD/+AEhKafuDBk98Pc5GbVPyWIK3H9VRGRJVofNDpQw8wYM
+                    9WuzO/DgcZTH1u+9A4/PTm1yfzG36STYO79OFHsR34XSvXrOwMFvj16CvQZD6/lPnf2bbtcKufpT
+                    jxfWg+jw43Q3esCBwPEWbkIP9ci8+s5fgho2Zi3IKPqywWxOrm0FrViHUohgeRrxL0tiXm72/jFK
+                    R1HtxAp4TOfhdIIQ+2O0tvbjIFEnjTPYJZbTwUkGXiUqlH0vR9kt/hJDcG+5fnegyof5/I4T2WTa
+                    r+YrkBA94XoR1lek+x5e3KaCsr31VD/HBvwTgWYokIDqP48aJOPfC1tvTAH9aWKrpf0EXzbSqRT0
+                    lXFP3BJxSZbJK9yVH/kmGeWq4pI04zR+ynATAU6Ea2vobkAO1NEtWagL7J7tw5MN4GTiRJQJ7tGq
+                    nRDxb6Z24S6Khx9xN/Iev1z8jABICjBBZOO4IlaYLlwOpw0iDS9s4+wXx7guYunAXklDRvNsSysS
+                    ayoAILSFcywZGX3bmlDa84NCUujdMFV4dn9Bne09Fhyji5YciAmxoNfAw4BKqhvrzXUGW1FiS7rO
+                    26/TPuoicK0aGIvN+Oql74f0rMiiUVKQlmOZsr9t/nbqat4mWLlttTv/+n/YlGmkIH9g+stfHOZe
+                    LVoDbvOqsHngqd58YwIDAQABo4ICPjCCAjowHwYDVR0jBBgwFoAUURymuGZW0Z7k0pCihcOQyyGb
+                    n8YwHQYDVR0OBBYEFPrUMr9PcFDfgv8H3YyT2UErLe9nMA4GA1UdDwEB/wQEAwIFoDBVBgNVHSAE
+                    TjBMMEAGByqFcCNjAgIwNTAzBggrBgEFBQcCARYnaHR0cDovL3JwYXBwLnNpdGhzLnNlL3NpdGhz
+                    cnBhdjFwcC5odG1sMAgGBmeBDAECAjAcBgNVHREEFTATghFpZHAuaW5lcmF0ZXN0Lm9yZzB3BgNV
+                    HR8EcDBuMDGgL6AthitodHRwOi8vY3JsMXBwLnNpdGhzLnNlL3NpdGhzdHlwZTNjYXYxcHAuY3Js
+                    MDmgN6A1hjNodHRwOi8vY3JsMnBwLnNpdGhzLnNqdW5ldC5vcmcvc2l0aHN0eXBlM2NhdjFwcC5j
+                    cmwwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMIHaBggrBgEFBQcBAQSBzTCByjAjBggr
+                    BgEFBQcwAYYXaHR0cDovL29jc3AxcHAuc2l0aHMuc2UwKwYIKwYBBQUHMAGGH2h0dHA6Ly9vY3Nw
+                    MnBwLnNpdGhzLnNqdW5ldC5vcmcwNgYIKwYBBQUHMAKGKmh0dHA6Ly9haWFwcC5zaXRocy5zZS9z
+                    aXRoc3R5cGUzY2F2MXBwLmNlcjA+BggrBgEFBQcwAoYyaHR0cDovL2FpYXBwLnNpdGhzLnNqdW5l
+                    dC5vcmcvc2l0aHN0eXBlM2NhdjFwcC5jZXIwDQYJKoZIhvcNAQENBQADggIBACFI2IACUWSbXWbi
+                    pkeIEStqNeXf4uoFQBnYGUQi+XYgbr9WbGGf3f7d35dRtAo8DxHIgsy8UPwphqDbzZz/TuSf1VN8
+                    u1ZR//zj+J7kh/z5nqNYi/R9W/7TNfXPSfkslDi7gLhteXSY+FJ6lpAJE20hnNZ+DLO3WFuce3/Z
+                    Z89Di6X4hG9zvYXL6MyjK6/eFgE4atdpdYnIp0/kM7HSZuYQS8gMtSq8EFByxgC/HaKhIlkXxieX
+                    xlA53Isij72EdCisIhgau/mIJ9erW8Lc2CcLzpjEPY8QBKEpUBYYnoGwNrxor+MBWzR0YhtUHI/0
+                    r83tGzgyd80/5EHkx5q2ks1BZNJurBaNXTNfiEPrPKzTm1gyHLY6SiAPZeeydxI2tNggs7LWfhe1
+                    aJXXPedLAnB9UDdUSEcN2njUmux2Kty29kbXcHNfVG6GFQeocTM5Ikctfo4/IGTROeO+t1NJErEm
+                    SBqwdxm2nFbZ9q3Jz11TQ44+IWCGPETCR1ex9sFVSkvczeY4bmRtTCPfBRFC/Tdsn2Ol0tnfePij
+                    I+ISaQZi2KNdnOOOX7ZyVqp7A62WpPN3FDub10IuzZwYi2X3jytXrrPNZ6VwmAt1rnr75tXMyQU7
+                    SDyYqQCL112/m5Avq9ftb0/clLH0X4b/tdqZBDE3OEhUR4/pDA8csMaZdE4H
+                </ds:X509Certificate>
+            </ds:X509Data>
+        </ds:KeyInfo>
+    </ds:Signature>
+    <md:Extensions>
+        <mdattr:EntityAttributes>
+            <saml2:Attribute Name="urn:oasis:names:tc:SAML:attribute:assurance-certification"
+                             NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+                <saml2:AttributeValue>http://id.sambi.se/loa/loa2</saml2:AttributeValue>
+                <saml2:AttributeValue>http://id.sambi.se/loa/loa3</saml2:AttributeValue>
+                <saml2:AttributeValue>http://id.sambi.se/loa/loa4</saml2:AttributeValue>
+            </saml2:Attribute>
+        </mdattr:EntityAttributes>
+    </md:Extensions>
+    <md:IDPSSODescriptor WantAuthnRequestsSigned="false"
+                         protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <md:KeyDescriptor use="signing">
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>
+                        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
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                                      Location="https://idp.ineratest.org:443/saml/artifact/SOAP" index="0"
+                                      isDefault="true"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                Location="https://idp.ineratest.org:443/saml/slo/HTTP-Redirect"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact"
+                                Location="https://idp.ineratest.org:443/saml/slo/HTTP-Artifact"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                Location="https://idp.ineratest.org:443/saml/slo/HTTP-POST"/>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                Location="https://idp.ineratest.org:443/saml/sso/HTTP-Redirect"/>
+        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact"
+                                Location="https://idp.ineratest.org:443/saml/sso/HTTP-Artifact"/>
+        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                Location="https://idp.ineratest.org:443/saml/sso/HTTP-POST"/>
+        <saml2:Attribute FriendlyName="commissionHsaId" Name="http://sambi.se/attributes/1/commissionHsaId"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="commissionName" Name="http://sambi.se/attributes/1/commissionName"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="commissionPurpose" Name="http://sambi.se/attributes/1/commissionPurpose"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="commissionRight" Name="http://sambi.se/attributes/1/commissionRight"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="employeeHsaId" Name="http://sambi.se/attributes/1/employeeHsaId"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="givenName" Name="http://sambi.se/attributes/1/givenName"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="groupPrescriptionCode" Name="http://sambi.se/attributes/1/groupPrescriptionCode"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="healthcareProfessionalLicense"
+                         Name="http://sambi.se/attributes/1/healthcareProfessionalLicense"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="healthcareProfessionalLicenseIdentityNumber"
+                         Name="http://sambi.se/attributes/1/healthcareProfessionalLicenseIdentityNumber"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="healthCareProfessionalLicenceSpeciality"
+                         Name="http://sambi.se/attributes/1/healthCareProfessionalLicenceSpeciality"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="healthCareProviderHsaId"
+                         Name="http://sambi.se/attributes/1/healthCareProviderHsaId"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="healthcareProviderId" Name="http://sambi.se/attributes/1/healthcareProviderId"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="healthCareProviderName"
+                         Name="http://sambi.se/attributes/1/healthCareProviderName"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="healthCareUnitHsaId" Name="http://sambi.se/attributes/1/healthCareUnitHsaId"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="healthCareUnitName" Name="http://sambi.se/attributes/1/healthCareUnitName"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="mail" Name="http://sambi.se/attributes/1/mail"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="mobileTelephoneNumber" Name="http://sambi.se/attributes/1/mobileTelephoneNumber"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="occupationalCode" Name="http://sambi.se/attributes/1/occupationalCode"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="organizationIdentifier"
+                         Name="http://sambi.se/attributes/1/organizationIdentifier"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="organizationName" Name="http://sambi.se/attributes/1/organizationName"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="paTitleCode" Name="http://sambi.se/attributes/1/paTitleCode"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="personalIdentityNumber"
+                         Name="http://sambi.se/attributes/1/personalIdentityNumber"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="personalPrescriptionCode"
+                         Name="http://sambi.se/attributes/1/personalPrescriptionCode"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="surname" Name="http://sambi.se/attributes/1/surname"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="systemRole" Name="http://sambi.se/attributes/1/systemRole"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="telephoneNumber" Name="http://sambi.se/attributes/1/telephoneNumber"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="authnMethod" Name="urn:sambi:names:attribute:authnMethod"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="x509IssuerName" Name="urn:sambi:names:attribute:x509IssuerName"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="x509IssuerName" Name="http://www.w3.org/2000/09/xmldsig#x509IssuerName"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="x509SubjectName" Name="http://www.w3.org/2000/09/xmldsig#x509SubjectName"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+        <saml2:Attribute FriendlyName="levelOfAssurance" Name="urn:sambi:names:attribute:levelOfAssurance"
+                         NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+    </md:IDPSSODescriptor>
+    <md:Organization>
+        <md:OrganizationName xml:lang="sv">Inera</md:OrganizationName>
+        <md:OrganizationDisplayName xml:lang="sv">Inera AB</md:OrganizationDisplayName>
+        <md:OrganizationURL xml:lang="sv">https://www.inera.se/</md:OrganizationURL>
+    </md:Organization>
+    <md:ContactPerson contactType="technical">
+        <md:Company>Inera</md:Company>
+        <md:GivenName>Inera</md:GivenName>
+        <md:SurName>Kundservice</md:SurName>
+        <md:EmailAddress>kundservice@inera.se</md:EmailAddress>
+        <md:TelephoneNumber>0771251010</md:TelephoneNumber>
+    </md:ContactPerson>
+    <md:ContactPerson contactType="support">
+        <md:Company>CGI</md:Company>
+        <md:GivenName>Inera</md:GivenName>
+        <md:SurName>Kundservice</md:SurName>
+        <md:EmailAddress>kundservice@inera.se</md:EmailAddress>
+        <md:TelephoneNumber>0771251010</md:TelephoneNumber>
+    </md:ContactPerson>
+</md:EntityDescriptor>

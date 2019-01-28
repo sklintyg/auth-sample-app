@@ -99,10 +99,6 @@ angular.module('rhsIndexApp')
                 })
         };
 
-//        $scope.openWebcert = function() {
-//            $window.location($scope.config.webcertUrl + '/visa/intyg/' + $scope.deeplink.certId);
-//        };
-
         $scope.loadConfig();
         $scope.loadUser();
 

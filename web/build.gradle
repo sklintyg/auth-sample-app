@@ -1,6 +1,5 @@
 apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
-apply plugin: 'com.moowork.grunt'
 
 war.rootSpec.exclude "logback.xml"
 
@@ -14,8 +13,6 @@ idea {
         excludeDirs += file('src\\main\\webapp\\bower_components')
     }
 }
-
-war.dependsOn createVersionPropertyFile
 
 gretty {
     contextPath = '/'
@@ -48,8 +45,6 @@ dependencies {
     compile "org.springframework.security.extensions:spring-security-saml2-core:${springSecurityExtensionsVersion}"
 
     compile "org.opensaml:opensaml:${opensamlVersion}"
-    //compile "org.opensaml:openws:${openWsVersion}"
-    //compile "org.opensaml:xmltooling:${xmlToolingVersion}"
 
     compile "org.apache.httpcomponents:httpclient:${apacheHttpClientVersion}"
     compile "org.aspectj:aspectjweaver:${aspectjWeaverVersion}"

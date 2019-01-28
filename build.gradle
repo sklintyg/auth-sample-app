@@ -1,7 +1,6 @@
 plugins {
-    id "se.inera.intyg.plugin.common" version "1.0.62" apply false
+    id "se.inera.intyg.plugin.common" version "1.0.70"
     id "org.akhikhl.gretty" version "1.4.2" apply false
-    id "com.moowork.node" version "1.1.1" apply false
 }
 
 ext {
@@ -12,13 +11,11 @@ ext {
     logbackVersion = "1.0.13"
     mockitoVersion = "2.16.0"
     opensamlVersion = "2.6.1"
-//    openWsVersion = "1.4.2-1"
 
     slf4jVersion = "1.7.10"
     springContextVersion = "5.0.5.RELEASE"
     springSecurityVersion = "4.2.5.RELEASE"
     springSecurityExtensionsVersion = "1.0.3.RELEASE"
-
 }
 
 allprojects {
@@ -46,19 +43,4 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
-    task createVersionPropertyFile(type: VersionPropertyFileTask)
-
-    uploadArchives.repositories.mavenDeployer {
-        repository(url: "https://build-inera.nordicmedtest.se/nexus/repository/releases/") {
-            authentication(userName: System.properties['nexusUsername'], password: System.properties['nexusPassword'])
-        }
-    }
-
-    [install.repositories.mavenInstaller, uploadArchives.repositories.mavenDeployer]*.pom*.whenConfigured { pom ->
-        pom.dependencies.findAll {dep -> dep.groupId == 'se.inera.intyg.infra'}.each {
-            it.version = se.inera.intyg.IntygPluginKt.findResolvedVersion(project, 'se.inera.intyg.infra')
-        }
-    }
 }
-
-task tagRelease(type: TagReleaseTask)

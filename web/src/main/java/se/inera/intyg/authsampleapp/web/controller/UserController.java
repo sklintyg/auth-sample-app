@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Inera AB (http://www.inera.se)
+ * Copyright (C) 2019 Inera AB (http://www.inera.se)
  *
  * This file is part of sklintyg (https://github.com/sklintyg).
  *
@@ -56,7 +56,10 @@ public class UserController {
         if (isAuthenticated()) {
             return new UserModelResponse((UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), true);
         }
-        return new UserModelResponse(null, false);
+        return UserModelResponse.UserModelResponseBuilder.anUserModelResponse()
+                .withUserModel(null)
+                .withAuthenticated(false)
+                .build();
     }
 
     @RequestMapping(value = "/exchange", method = GET, produces = "application/json")
@@ -70,7 +73,10 @@ public class UserController {
             JsonNode jsonNode = new ObjectMapper().readTree(token);
             userModel.setAccessToken(jsonNode.get("access_token").textValue());
             userModel.setRefreshToken(jsonNode.get("refresh_token").textValue());
-            return new UserModelResponse(userModel, true);
+            return UserModelResponse.UserModelResponseBuilder.anUserModelResponse()
+                    .withUserModel(userModel)
+                    .withAuthenticated(true)
+                    .build();
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
