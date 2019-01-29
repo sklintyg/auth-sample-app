@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv" id="ng-app" ng-app="rhsIndexApp">
+<html lang="sv" id="ng-app" ng-app="indexApp">
 
 <head>
     <meta charset="utf-8">
@@ -8,79 +8,76 @@
 
     <base href="/">
     <title>OAuth/SAML exchange example application</title>
-    <link rel="stylesheet" type="text/css" href="css/webcert.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <style>
     html, body {
         height: 100%;
         margin: 4px;
-        padding: 0px;
+        padding: 0;
     }
+
+    body {
+        padding-bottom: 50px;
+    }
+
+    .disabled-label {
+        font-weight: normal;
+    }
+
 </style>
 
 <body class="index-page" ng-controller="IndexController">
 
-<div class="container content">
+<div class="container content ng-cloak">
 <h1>"Journalsystemet" - biljettväxling RFC7522 med överhopp till Webcert</h1>
     <div class="row">
-        <div class="col-sm-6"> <button type="button" class="btn btn-default"><a href="/saml/login/alias/defaultAlias">Login Inera IdP 1.0 (SITHS)</a></button>
+        <div class="col-sm-6">
+            <a href="/saml/login/alias/defaultAlias" class="btn btn-default">Login Inera IdP 1.0 (SITHS)</a>
             <button type="button" class="btn btn-default" ng-if="loggedIn" ng-click="exchangeToken()">Request Token from IdP</button>
-            <button type="button" class="btn btn-default" ng-if="loggedIn" ng-click="exchangeToken()"><a href="/saml/logout">Logga ut</a></button></div>
-        <div class="col-sm-6"><strong>Du är inloggad som:</strong> {{ user.hsaId }}<br>
+            <a ng-if="loggedIn" href="/saml/logout" class="btn btn-default">Logga ut</a>
+        </div>
+        <div class="col-sm-6">
+            <strong>Du är inloggad som:</strong> {{ user.hsaId }}<br>
             <strong>Webcert URL:</strong> {{ config.webcertUrl }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-        <hr>
+            <hr>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
             <label for="access_token">Access token</label>
             <textarea id="access_token" rows="20" cols="60" name="access_token" ng-model="user.accessToken" class="form-control"></textarea><br>
-            <button type="button" ng-click="loginDjupintegration()" class="form-control">Öppna Webcert</button>
+            <button type="button" ng-click="loginDjupintegration()" ng-disabled="!enableOpenButton()" class="form-control btn btn-primary">Öppna Webcert</button>
         </div>
         <div class="col-sm-6">
-            <label for="intygId" class="control-label">intygId:</label>
-            <input type="text" class="form-control" size="40" id="intygId" name="intygId" ng-model="deeplink.certId" placeholder="utkast/intygsid"><br>
-            <label for="intygTyp" class="control-label">intygTyp:</label>
-            <input type="text" class="form-control" size="20" id="intygTyp" name="intygTyp" ng-model="deeplink.certType" placeholder="Intygstyp"><br>
-            <label for="alternatePatientSSn" class="control-label">nytt personnummer</label>
-            <input type="text" class="form-control" size="20" id="alternatePatientSSn" name="alternatePatientSSn" ng-model="deeplink.formData.alternatePatientSSn" placeholder="alternatePatientSSn"><br>
-            <label for="fornamn" class="control-label">fornamn:</label>
-            <input type="text" class="form-control" size="20" id="fornamn" name="fornamn" ng-model="deeplink.formData.fornamn" placeholder="Förnamn" ng-disabled="deeplink.excludedFields.fornamn">exclude?<input type="checkbox" id="fornamn-disable-box" ng-model="deeplink.excludedFields.fornamn"><br><br>
-            <label for="mellannamn" class="control-label">mellannamn:</label>
-            <input type="text" class="form-control" size="20" id="mellannamn" name="mellannamn" ng-model="deeplink.formData.mellannamn" placeholder="Mellannamn" ng-disabled="deeplink.excludedFields.mellannamn">exclude?<input type="checkbox" id="mellannamn-disable-box" ng-model="deeplink.excludedFields.mellannamn"><br><br>
-            <label for="efternamn" class="control-label">efternamn:</label>
-            <input type="text" class="form-control" size="20" id="efternamn" name="efternamn" ng-model="deeplink.formData.efternamn" placeholder="Efternamn" ng-disabled="deeplink.excludedFields.efternamn">exclude?<input type="checkbox" id="efternamn-disable-box" ng-model="deeplink.excludedFields.efternamn"><br><br>
-            <label for="postadress" class="control-label">postadress:</label>
-            <input type="text" class="form-control" size="20" id="postadress" name="postadress" ng-model="deeplink.formData.postadress" placeholder="Postadress" ng-disabled="deeplink.excludedFields.postadress">exclude?<input type="checkbox" id="postadress-disable-box" ng-model="deeplink.excludedFields.postadress"><br><br>
-            <label for="postnr-ort" class="control-label">Postnr/ort:</label>
-            <input type="text" class="form-control" size="6" id="postnr-ort" name="postnummer" ng-model="deeplink.formData.postnummer" placeholder="Postnr" ng-disabled="deeplink.excludedFields.postnummer">exclude?<input type="checkbox" id="postnummer-disable-box" ng-model="deeplink.excludedFields.postnummer"><input type="text" class="form-control" size="20" name="postort" ng-model="deeplink.formData.postort" placeholder="Postort" ng-disabled="deeplink.excludedFields.postort">exclude?<input type="checkbox" id="postort-disable-box" ng-model="deeplink.excludedFields.postort"><br><br>
-            <label for="ref" class="control-label">ref:</label>
-            <input type="text" class="form-control" size="20" id="ref" name="ref" ng-model="deeplink.formData.ref" placeholder="Ref"><br>
-            <label for="enhet" class="control-label">enhetsid:</label>
-            <input type="text" class="form-control" size="20" id="enhet" name="enhet" ng-model="deeplink.formData.enhet" placeholder="enhetsid"><br>
-            <label for="responsibleHospName" class="control-label">responsibleHospName:</label>
-            <input type="text" class="form-control" size="20" id="responsibleHospName" name="responsibleHospName" ng-model="deeplink.formData.responsibleHospName" placeholder="responsibleHospName"><br>
-            <label for="sjf-checkbox" class="control-label">Sammanhållen Journalföring</label>
-            <input type="checkbox" id="sjf-checkbox" name="sjf" ng-model="deeplink.formData.sjf"> <br>
-            <label for="kopiering-ok-checkbox" class="control-label">kopieringOK</label>
-            <input type="checkbox" id="kopiering-ok-checkbox" name="kopieringOK" ng-model="deeplink.formData.kopieringOK"> <br>
-            <label for="patient-avliden-checkbox" class="control-label">patient avliden</label>
-            <input type="checkbox" id="patient-avliden-checkbox" name="avliden" ng-model="deeplink.formData.avliden"> <br>
-            <label for="inaktiv-enhet-checkbox" class="control-label">inaktiv enhet</label>
-            <input type="checkbox" id="inaktiv-enhet-checkbox" name="inaktivEnhet" ng-model="deeplink.formData.inaktivEnhet"> <br>
+            <h3>Djupintegrationsparametrar</h3>
+
+            <div class="form-group" ng-repeat="field in fields">
+                <label for="{{::field.id}}" class="control-label">{{::field.label}}:</label>
+
+                <span ng-if="field.canDisable">
+                    <label for="{{::field.id}}-disable-box" class="disabled-label">exclude:</label> <input type="checkbox" ng-attr-id="{{::field.id}}-disable-box" ng-model="field.disabled">
+                </span>
+
+                <input data-ng-if="field.checkbox" type="checkbox" ng-attr-id="{{::field.id}}"
+                       name="{{::field.id}}" ng-model="field.model">
+                <input data-ng-if="!field.checkbox" type="text" class="form-control" size="40"
+                       ng-attr-id="{{::field.id}}"
+                       name="{{::field.id}}"
+                       data-ng-attr-placeholder="{{::field.placeholder}}"
+                       ng-model="field.model"
+                       ng-disabled="field.disabled"
+                >
+            </div>
         </div>
     </div>
 </div>
 
-<!-- bower:js -->
-<script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="/bower_components/angular/angular.js"></script>
-<script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<!-- endbower -->
+<script type="text/javascript" src="/libs/angular/angular.min.js"></script>
 
 <script type="text/javascript" src="js/index-app.main.js"></script>
 </body>

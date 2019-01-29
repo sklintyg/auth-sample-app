@@ -18,6 +18,8 @@
  */
 package se.inera.intyg.authsampleapp.config;
 
+import java.util.Properties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -33,18 +35,12 @@ import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import java.util.Properties;
-
 @EnableAspectJAutoProxy
 @EnableWebMvc
 @Configuration
 @ComponentScan({
         "se.inera.intyg.authsampleapp.web", "se.inera.intyg.authsampleapp.service" })
 public class WebConfig extends WebMvcConfigurerAdapter {
-
-    private static final int SECONDS_IN_HOUR = 3600;
-    private static final int HOURS_IN_DAY = 24;
-    private static final int DAYS_TO_CACHE = 15;
 
     @Bean
     public ViewResolver viewResolver() {
@@ -68,15 +64,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-       // int cachePeriodInDays = SECONDS_IN_HOUR * HOURS_IN_DAY * DAYS_TO_CACHE;
         registry.addResourceHandler("/index.html").addResourceLocations("/");
-       // registry.addResourceHandler("/favicon.ico").addResourceLocations("/").setCachePeriod(cachePeriodInDays);
-       // registry.addResourceHandler("/robots.txt").addResourceLocations("/").setCachePeriod(cachePeriodInDays);
-        registry.addResourceHandler("/bower_components/**").addResourceLocations("/bower_components/");
-       // registry.addResourceHandler("/app/**").addResourceLocations("/app/");
-       // registry.addResourceHandler("/components/**").addResourceLocations("/components/");
-
-        //registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/libs/**").addResourceLocations("/libs/");
     }
 
     @Override

@@ -37,7 +37,6 @@ public class ConfigController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfigController.class);
 
-    private static final String PROJECT_VERSION_PROPERTY = "project.version";
     private static final String WEBCERT_URL_PROPERTY = "webcert.url";
 
     /**
@@ -50,7 +49,6 @@ public class ConfigController {
     @GetMapping
     public GetConfigResponse getConfig() {
         return GetConfigResponse.GetConfigResponseBuilder.aGetConfigResponse()
-                .withVersion(env.getProperty(PROJECT_VERSION_PROPERTY))
                 .withWebcertUrl(env.getProperty(WEBCERT_URL_PROPERTY))
                 .build();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Inera AB (http://www.inera.se)
+ * Copyright (C) 2019 Inera AB (http://www.inera.se)
  *
  * This file is part of sklintyg (https://github.com/sklintyg).
  *
@@ -18,50 +18,123 @@
  */
 
 //Register module
-angular.module('rhsIndexApp', []);
+angular.module('indexApp', []);
 
-angular.module('rhsIndexApp')
+angular.module('indexApp')
     .controller('IndexController', ['$scope', '$http', function($scope, $http) {
         'use strict';
-
-
 
         $scope.user = {};
         $scope.loggedIn = false;
 
-        $scope.deeplink = {
-                  certId: '9020fbb9-e387-40b0-ba75-ac2746e4736b',
-                  certType: '',
-                  formData: {
-                      alternatePatientSSn: '',
-                      fornamn: 'Nils',
-                      mellannamn: 'Nisse',
-                      efternamn: 'Nygren',
-                      postadress: 'Nygatan 14',
-                      postnummer: '555 66',
-                      postort: 'Nyberga',
-                      sjf: true,
-                      kopieringOK: true,
-                      ref: '',
-                      enhet: undefined
-                  },
-                  excludedFields: {
-                      fornamn: false,
-                      mellannamn: false,
-                      efternamn: false,
-                      postadress: false,
-                      postnummer: false,
-                      postort: false
-                  }
-              };
 
-        $scope.loadConfig = function() {
+        $scope.fields = [
+            {
+                id: 'certId',
+                label: 'intygId',
+                placeholder: 'utkast/intygsid',
+                model: '' // 9020fbb9-e387-40b0-ba75-ac2746e4736b
+            },
+            {
+                id: 'alternatePatientSSn',
+                label: 'nytt personnummer',
+                placeholder: 'alternatePatientSSn',
+                model: ''
+            },
+            {
+                id: 'fornamn',
+                label: 'Förnamn',
+                placeholder: 'Förnamn',
+                model: '',
+                canDisable: true
+            },
+            {
+                id: 'mellannamn',
+                label: 'Mellannamn',
+                placeholder: 'Mellannamn',
+                model: '',
+                canDisable: true
+            },
+            {
+                id: 'efternamn',
+                label: 'Efternamn',
+                placeholder: 'Efternamn',
+                model: '',
+                canDisable: true
+            },
+            {
+                id: 'postadress',
+                label: 'Postadress',
+                placeholder: 'Postadress',
+                model: '',
+                canDisable: true
+            },
+            {
+                id: 'postnummer',
+                label: 'Postnummer',
+                placeholder: 'Postnr',
+                model: '',
+                canDisable: true
+            },
+            {
+                id: 'postort',
+                label: 'Postort',
+                placeholder: 'Postort',
+                model: '',
+                canDisable: true
+            },
+            {
+                id: 'ref',
+                label: 'ref',
+                placeholder: 'Ref',
+                model: ''
+            },
+            {
+                id: 'enhet',
+                label: 'enhet',
+                placeholder: 'enhetsid',
+                model: undefined
+            },
+            {
+                id: 'responsibleHospName',
+                label: 'responsibleHospName',
+                placeholder: 'responsibleHospName',
+                model: ''
+            },
+            {
+                id: 'sjf',
+                label: 'Sammanhållen Journalföring',
+                checkbox: true,
+                model: true
+            },
+            {
+                id: 'kopieringOK',
+                label: 'kopieringOK',
+                checkbox: true,
+                model: true
+            },
+            {
+                id: 'avliden',
+                label: 'patient avliden',
+                checkbox: true,
+                model: undefined
+            },
+            {
+                id: 'inaktivEnhet',
+                label: 'inaktiv enhet',
+                checkbox: true,
+                model: undefined
+            }
+
+        ];
+
+        function loadConfig() {
             $http.get('/api/config', null).then(function(response) {
                 $scope.config = response.data;
             })
-        };
+        }
 
-        $scope.loadUser = function() {
+         function loadUser() {
             $http.get('/api/user', null).then(function(response) {
                 if (response.data.authenticated) {
                     $scope.user = response.data.userModel;
@@ -70,87 +143,62 @@ angular.module('rhsIndexApp')
                     $scope.loggedIn = false;
                 }
             });
-        };
+        }
+
+        loadConfig();
+        loadUser();
 
         $scope.exchangeToken = function() {
             $http.get('/api/user/exchange').then(function(response) {
                 $scope.token = response.data.userModel.token;
-                $scope.loadUser();
-            });
-        };
-
-        $scope.exchangePreStoredToken = function() {
-            $http.get('/api/user/prestored').then(function(response) {
-                $scope.token = response.data.userModel.token;
+                loadUser();
             });
         };
 
         $scope.enableOpenButton = function() {
-            return angular.isDefined($scope.intygsId) && $scope.intygsId.length > 4;
+            return $scope.user.accessToken;
         };
-
-        $scope.authenticate = function() {
-            $http.get($scope.config.webcertUrl + '/oauth/token', {
-                headers: {'Authorization': 'Bearer: ' + $scope.user.accessToken},
-                withCredentials: true
-               }).then(function() {
-                    // $scope.openWebcert();
-                    loginDjupintegration();
-                })
-        };
-
-        $scope.loadConfig();
-        $scope.loadUser();
 
          $scope.loginDjupintegration = function() {
               try {
-                  var url = $scope.config.webcertUrl + '/oauth/token',
-                      data = $scope.deeplink.formData;
-                      angular.forEach($scope.deeplink.excludedFields, function(value, key) {
-                          if(value === true) {
-                              delete data[key];
-                          }
-                      });
+                  var url = $scope.config.webcertUrl + '/oauth/token';
+
+                  var data = [];
+                  angular.forEach($scope.fields, function(value) {
+                      if( value.disabled !== true) {
+                          data.push({
+                              id: value.id,
+                              data: value.model
+                          });
+                      }
+                  });
+
                   // submit data
                   sendData(url, data);
               } catch(e) {
                   alert(e);
               }
-          }
+          };
 
         function sendData(url, data) {
-            var name,
-                form = document.createElement('form'),
-                node = document.createElement('input');
+            var form = document.createElement('form');
 
             form.method = 'post';
             form.action = url;
             form.enctype = 'application/x-www-form-urlencoded';
 
-            for(name in data) {
-                node.name  = name;
-                node.value = data[name] === undefined ? '' : data[name].toString();
-                form.appendChild(node.cloneNode());
-            }
-            var token = document.createElement('input');
-            token.name = 'access_token';
-            token.value = $scope.user.accessToken;
-            form.appendChild(token.cloneNode());
+            data.push({
+                id: 'access_token',
+                data: $scope.user.accessToken
+            });
 
-            var certId = document.createElement('input');
-            certId.name = 'certId';
-            certId.value = $scope.deeplink.certId;
-            form.appendChild(certId.cloneNode());
+            angular.forEach(data, function(row) {
+                var node = document.createElement('input');
+                node.name  = row.id;
+                node.value = row.data === undefined ? '' : row.data.toString();
 
-            var certType = document.createElement('input');
-            certType.name = 'certId';
-            certType.value = $scope.deeplink.certType;
-            form.appendChild(certType.cloneNode());
-
-            var enhet = document.createElement('input');
-            enhet.name = 'certId';
-            enhet.value = $scope.deeplink.certType;
-            form.appendChild(enhet.cloneNode());
+                form.appendChild(node);
+            });
 
             // To be sent, the form needs to be attached to the main document.
             form.style.display = "none";
