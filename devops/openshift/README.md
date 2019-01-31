@@ -1,3 +1,4 @@
+_**Note:** Instructions here are only applicable to internal Inera usage for installing this application on their OpenShift test cluster._
 
 ### Skapa config
 
@@ -8,7 +9,6 @@ Notera att certifikat och secret-vars.yaml EJ är incheckade, dessa får man plo
     oc create configmap "authsampleapp-test-config" --from-file=test/config/
     oc create -f test/secret-vars.yaml
     oc create -f test/configmap-vars.yaml
-
 
 ### Skapa pipeline
 

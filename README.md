@@ -1,8 +1,46 @@
 # auth-sample-app
-Example application for connecting to Inera IdP and exchanging a SAML certificate for an OAuth token.
+Example application for connecting to Inera IdP and exchanging a SAML certificate for an OAuth token. The OAuth token can then be used for authenticating a user against a configured Webcert instance.
 
-Based on Spring Framework 4 with Spring Security and the Spring SAML Extension
+The following UML sequence diagram describes the overall process of exchanging a SAML assertion for an OAuth token, as well as how Webcert then verifies the supplied token and authorizes the user.
 
+![sequence diagram](/docs/saml-oidc-biljettvaxling.png)
+
+### Frameworks
+This example application Java-based, requiring Java 8 or later.
+
+The backend application uses Spring Framework 4 with Spring Security and the Spring SAML Extension.
+The frontend is based on AngularJS 1.6.
+
+### Installing
+In order to test this application against the _https://idp.ineratest.org:443/saml_ IdP, you need to register yourself as a SAML Service Provider with OIDC support. Please contact nationellkundservice@inera.se.
+
+You will also need to specify some URLs and create a JKS keystore with your private key used for signing outgoing SAML authnreq requests. Store this keystore at /devops/openshift/demo/certifikat
+
+Specify your keystore file and format using the following properties in _/devops/openshift/demo/config/authsampleapp.properties_:
+
+    # EntityID of the IdP
+    sakerhetstjanst.saml.idp.metadata.url=https://idp.ineratest.org:443/saml
+    
+    # EntityID of your SP
+    sakerhetstjanst.saml.entityId=http://localhost:9191
+    
+    # Alias of your private key in your keystore
+    sakerhetstjanst.saml.keystore.alias=<your alias>
+    
+    # Path to your keystore file
+    sakerhetstjanst.saml.keystore.file=file:///${certificate.folder}/your.keystore.jks
+        
+    # OpenID Connect relaying party identity
+    oidc.rp.identity=<replaceme>
+
+### Running
+Use the supplied gradle wrapper to run locally at port 9191
+
+    ./gradlew clean build appRunDebug
+    
+If required, a debugger can be attached to port 5014.
+
+# Overview
 This application demonstrates the following:
 
 ### 1. Perform a SAML-based authentication vs Inera IdP with the requisite audience restrictions.
@@ -125,9 +163,18 @@ The path _/oauth/token_ may evolve into somethinh more akin to pre WC 6.3 deep-i
 #### 5.1 Form POST
 The example application POSTs a standard HTML form to _https://path.to.webcert/oauth/token_ with content-type _application/x-www-form-urlencoded_ with the _access_token_ along with the already known "integration parameters" as form parameters.
 
-TODO show form code
-
-TBD In the demo application, we're submitting the intygs-id (the resource we want to access in Webcert) using a form parameter while the URL is https://path.to.webcert/oauth/token
+![gui example](/docs/webapp.png)
+    
+Usage: 
+1. Press the "Login Inera IDP 1.0 (SITHS)" button.
+2. Enter PIN etc using your NetiD client
+3. The "Du är inloggad som:" should display your HSA-ID.
+4. Click the "Request Token from IdP" button to exchange your <saml2:Assertion> for an OAuth token.
+5. A base64 encoded representation of the OAuth token should appear in the textarea.
+6. Enter at least a known intygs-id in the "IntygID" field. Press the "Öppna Webcert" button.
+7. The demo application will now POST the form with access_token.
+8. Webcert validates and introspects the token, authorizes the user's HSA-ID against HSA and starts the session.
+9. The selected intyg is opened.
 
 #### 5.2 Authorization bearer header / XHR
 Given that the demo application / journaling system are running on another domain than Webcert, we need to pay attention to Cross-Origin Resource Sharing (CORS) and whether SESSION cookies set on a CORS-enabled XHR request to another domain may be rejected by the browser. 
@@ -137,4 +184,4 @@ Please refer to https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS?redirectl
 At this time, we recommend **not** pursuing this route since we havn't been able to test this properly in a cross-domain scenario. Using XHR + Bearer on the same domain works fine though, but that should be of limited use for systems integrating with Webcert.
 
 ### 6. Refresh token
-Once the access_token has expired, a new one can be obtained using the refresh_token.
+Once the access_token has expired, a new one can be obtained using the refresh_token. Details about refresh tokens are not in scope for this demo application.
