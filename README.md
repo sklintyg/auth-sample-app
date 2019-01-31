@@ -32,6 +32,18 @@ Specify your keystore file and format using the following properties in _/devops
         
     # OpenID Connect relaying party identity
     oidc.rp.identity=<replaceme>
+    
+    # OpenID Connect client username, typically the same as oidc.rp.identity
+    client.id=
+    
+    # OpenID Connect client secret
+    client.secret=
+    
+    # URL to webcert
+    webcert.url=<https://<url.to.webcert>
+    
+    # Exchange endpoint
+    token.exchange.endpoint.url=https://idp.ineratest.org/oidc/token
 
 ### Running
 Use the supplied gradle wrapper to run locally at port 9191
