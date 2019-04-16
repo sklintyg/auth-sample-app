@@ -35,6 +35,7 @@
         <div class="col-sm-6">
             <a href="/saml/login/alias/defaultAlias" class="btn btn-default">Login Inera IdP 1.0 (SITHS)</a>
             <button type="button" class="btn btn-default" ng-if="loggedIn" ng-click="exchangeToken()">Request Token from IdP</button>
+            <button type="button" class="btn btn-default" ng-if="enableOpenButton()" ng-click="refreshAccessToken()">Refresh Access Token from IdP</button>
             <a ng-if="loggedIn" href="/saml/logout" class="btn btn-default">Logga ut</a>
         </div>
         <div class="col-sm-6">

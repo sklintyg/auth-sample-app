@@ -20,8 +20,7 @@ package se.inera.intyg.authsampleapp.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,19 +36,13 @@ public class ConfigController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfigController.class);
 
-    private static final String WEBCERT_URL_PROPERTY = "webcert.url";
-
-    /**
-     * Note - using Environment injection instead of @Value since the latter has some issues when injected into the
-     * context of this @RestController.
-     */
-    @Autowired
-    private Environment env;
+    @Value("${webcert.url}")
+    private String webcertUrl;
 
     @GetMapping
     public GetConfigResponse getConfig() {
         return GetConfigResponse.GetConfigResponseBuilder.aGetConfigResponse()
-                .withWebcertUrl(env.getProperty(WEBCERT_URL_PROPERTY))
+                .withWebcertUrl(webcertUrl)
                 .build();
     }
 }

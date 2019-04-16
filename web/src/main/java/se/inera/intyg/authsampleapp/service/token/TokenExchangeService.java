@@ -24,8 +24,11 @@ public interface TokenExchangeService {
      * Given a SAML response, exchange the underlying assertion for a JWT token.
      *
      * @param samlResponse
-     *      SAML response
+     *            SAML response
      * @return
      */
     String exchange(byte[] samlResponse);
+
+    // TODO javadoc
+    String refresh(String refreshToken);
 }

@@ -44,6 +44,7 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
     private static final String CLIENT_SECRET = "client_secret";
     private static final String GRANT_TYPE = "grant_type";
     private static final String ASSERTION = "assertion";
+    private static final String RESRESH_TOKEN = "refresh_token";
 
     @Value("${token.exchange.endpoint.url}")
     private String tokenExchangeEndpointUrl;
@@ -76,6 +77,28 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
             map.add(CLIENT_SECRET, clientSecret);
             map.add(GRANT_TYPE, BEARER_VALUE);
             map.add(ASSERTION, assertion);
+
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+            ResponseEntity<String> response = restTemplate.postForEntity(tokenExchangeEndpointUrl, request, String.class);
+            return response.getBody();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public String refresh(String refreshToken) {
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.add(CLIENT_ID, clientId);
+            map.add(CLIENT_SECRET, clientSecret);
+            map.add(GRANT_TYPE, RESRESH_TOKEN);
+            map.add(RESRESH_TOKEN, refreshToken);
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 

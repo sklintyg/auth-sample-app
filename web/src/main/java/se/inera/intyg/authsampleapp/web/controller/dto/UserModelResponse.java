@@ -46,7 +46,6 @@ public class UserModelResponse {
         this.authenticated = authenticated;
     }
 
-
     public static final class UserModelResponseBuilder {
         private UserModel userModel;
         private boolean authenticated;

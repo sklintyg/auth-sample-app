@@ -19,10 +19,10 @@ You will also need to specify some URLs and create a JKS keystore with your priv
 Specify your keystore file and format using the following properties in _/devops/openshift/demo/config/authsampleapp.properties_:
 
     # EntityID of the IdP
-    sakerhetstjanst.saml.idp.metadata.url=https://idp.ineratest.org:443/saml
+    sakerhetstjanst.saml.idp.entityid=https://idp.ineratest.org:443/saml
     
     # EntityID of your SP
-    sakerhetstjanst.saml.entityId=http://localhost:9191
+    sakerhetstjanst.saml.sp.entityid=http://localhost:9191
     
     # Alias of your private key in your keystore
     sakerhetstjanst.saml.keystore.alias=<your alias>
