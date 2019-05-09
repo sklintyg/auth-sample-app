@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.saml.SAMLCredential;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.inera.intyg.authsampleapp.auth.UserModel;
@@ -80,6 +81,16 @@ public class UserController {
         }
         UserModel userModel = (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return getUserModelResponse(userModel, tokenExchangeService.exchange(userModel.getSamlAuthentication()));
+    }
+
+    @RequestMapping(value = "/exchange2", method = GET, produces = "application/json")
+    public UserModelResponse exchange2() {
+        if (!isAuthenticated()) {
+            throw new IllegalStateException("Cannot initiate token exchange without logging in first.");
+        }
+        SAMLCredential samlCredential = (SAMLCredential) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+        UserModel userModel = (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return getUserModelResponse(userModel, tokenExchangeService.exchange2(samlCredential));
     }
 
     private UserModelResponse getUserModelResponse(UserModel userModel, String token) {

@@ -148,7 +148,7 @@ angular.module('indexApp')
         loadUser();
 
         $scope.exchangeToken = function() {
-            $http.get('/api/user/exchange').then(function(response) {
+            $http.get('/api/user/exchange2').then(function(response) {
                 loadUser();
             });
         };
@@ -165,7 +165,28 @@ angular.module('indexApp')
 
         $scope.loginDjupintegration = function() {
             try {
-                var url = $scope.config.webcertUrl + '/oauth/token';
+                var url = $scope.config.webcertUrl + '/oauth/token/edit';
+
+                var data = [];
+                angular.forEach($scope.fields, function(value) {
+                    if (value.disabled !== true) {
+                        data.push({
+                            id: value.id,
+                            data: value.model
+                        });
+                    }
+                });
+
+                // submit data
+                sendData(url, data);
+            } catch (e) {
+                alert(e);
+            }
+        };
+
+        $scope.loginReadonly = function() {
+            try {
+                var url = $scope.config.webcertUrl + '/oauth/token/read';
 
                 var data = [];
                 angular.forEach($scope.fields, function(value) {

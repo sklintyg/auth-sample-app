@@ -18,6 +18,8 @@
  */
 package se.inera.intyg.authsampleapp.service.token;
 
+import org.springframework.security.saml.SAMLCredential;
+
 public interface TokenExchangeService {
 
     /**
@@ -28,6 +30,8 @@ public interface TokenExchangeService {
      * @return
      */
     String exchange(byte[] samlResponse);
+
+    String exchange2(SAMLCredential samlCredential);
 
     // TODO javadoc
     String refresh(String refreshToken);

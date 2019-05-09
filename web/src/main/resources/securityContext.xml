@@ -298,6 +298,7 @@
         <!-- SAML 2.0 WebSSO Assertion Consumer -->
         <bean id="webSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerImpl">
             <property name="responseSkew" value="${sakerhetstjanst.saml.responseSkew}"/>
+            <property name="releaseDOM" value="false"/>
         </bean>
 
         <!-- SAML 2.0 Holder-of-Key WebSSO Assertion Consumer -->

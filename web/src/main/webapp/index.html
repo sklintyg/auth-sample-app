@@ -52,7 +52,8 @@
         <div class="col-sm-6">
             <label for="access_token">Access token</label>
             <textarea id="access_token" rows="20" cols="60" name="access_token" ng-model="user.accessToken" class="form-control"></textarea><br>
-            <button type="button" ng-click="loginDjupintegration()" ng-disabled="!enableOpenButton()" class="form-control btn btn-primary">Öppna Webcert</button>
+            <button type="button" ng-click="loginDjupintegration()" ng-disabled="!enableOpenButton()" class="form-control btn btn-primary">Öppna Webcert (Djupintegration)</button>
+            <button type="button" ng-click="loginReadonly()" ng-disabled="!enableOpenButton()" class="form-control btn btn-primary">Öppna Webcert (ReadOnly)</button>
         </div>
         <div class="col-sm-6">
             <h3>Djupintegrationsparametrar</h3>
