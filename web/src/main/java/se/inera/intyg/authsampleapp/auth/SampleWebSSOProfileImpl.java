@@ -42,7 +42,7 @@ import org.springframework.stereotype.Component;
  *
  * The client_id of the SP application needs to be present as an audience. E.g: If our client_id is "journalsystemet",
  * the conditions element needs to contain a corresponding audience restriction:
- * 
+ *
  * <pre>
  * {@code
  *  <saml2:Audience>https://idp.ineratest.org:443/saml</saml2:Audience>

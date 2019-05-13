@@ -33,6 +33,5 @@ public interface TokenExchangeService {
 
     String exchange2(SAMLCredential samlCredential);
 
-    // TODO javadoc
     String refresh(String refreshToken);
 }
