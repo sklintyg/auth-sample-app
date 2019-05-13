@@ -29,10 +29,9 @@ gretty {
 
     jvmArgs = [
             '-Dspring.profiles.active=dev',
-            '-Dconfig.file=' + projectDir + '/../devops/openshift/demo/config/authsampleapp.properties',
-            '-Dconfig.folder=' + projectDir + '/../devops/openshift/demo/config',
-            '-Dcredentials.file=' + projectDir + '/src/main/resources/credentials-dev.properties',
-            '-Dcertificate.folder=' + projectDir + '/../devops/openshift/demo/certifikat'
+            '-Dconfig.file=' + projectDir + '/../devops/dev/config/dev.properties',
+            '-Dconfig.folder=' + projectDir + '/../devops/dev/config',
+            '-Dcertificate.folder=' + projectDir + '/../devops/dev/certifikat'
     ]
 }
 

@@ -121,6 +121,7 @@
         </security:http>
 
         <security:http use-expressions="false" entry-point-ref="http403ForbiddenEntryPoint">
+            <security:csrf disabled="true"/>
             <security:logout logout-url="/logout" logout-success-url="/index.html" invalidate-session="true"/>
             <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>
             <security:custom-filter after="BASIC_AUTH_FILTER" ref="samlFilter"/>
@@ -195,7 +196,7 @@
                         <constructor-arg>
                             <bean class="org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider">
                                 <constructor-arg>
-                                    <value type="java.io.File">${config.dir}/sp-ineratest.xml</value>
+                                    <value type="java.io.File">${sakerhetstjanst.saml.sp.metadata.file}</value>
                                 </constructor-arg>
                                 <property name="parserPool" ref="parserPool"/>
                             </bean>
@@ -225,7 +226,7 @@
                         <constructor-arg>
                             <bean class="org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider">
                                 <constructor-arg>
-                                    <value type="java.io.File">${config.dir}/idp-ineratest.xml</value>
+                                    <value type="java.io.File">${sakerhetstjanst.saml.idp.metadata.file}</value>
                                 </constructor-arg>
                                 <property name="parserPool" ref="parserPool"/>
                             </bean>
@@ -242,8 +243,8 @@
             </constructor-arg>
             <property name="refreshCheckInterval" value="86400000"/>
 
-            <property name="defaultIDP" value="${sakerhetstjanst.saml.idp.metadata.url}"/>
-            <property name="hostedSPName" value="${sakerhetstjanst.saml.entityId}"/>
+            <property name="defaultIDP" value="${sakerhetstjanst.saml.idp.entityid}"/>
+            <property name="hostedSPName" value="${sakerhetstjanst.saml.sp.entityid}"/>
 
         </bean>
 
@@ -297,6 +298,7 @@
         <!-- SAML 2.0 WebSSO Assertion Consumer -->
         <bean id="webSSOprofileConsumer" class="org.springframework.security.saml.websso.WebSSOProfileConsumerImpl">
             <property name="responseSkew" value="${sakerhetstjanst.saml.responseSkew}"/>
+            <property name="releaseDOM" value="false"/>
         </bean>
 
         <!-- SAML 2.0 Holder-of-Key WebSSO Assertion Consumer -->

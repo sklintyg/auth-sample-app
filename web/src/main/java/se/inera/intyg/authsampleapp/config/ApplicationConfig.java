@@ -33,6 +33,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
+
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -41,11 +42,9 @@ import java.security.cert.X509Certificate;
 @Configuration
 @PropertySource({ "classpath:default.properties",
         "file:${config.file}",
-        "file:${credentials.file}",
         "classpath:version.properties" })
 @ImportResource({ "classpath:securityContext.xml" })
 public class ApplicationConfig {
-
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
@@ -72,7 +71,6 @@ public class ApplicationConfig {
                 .build();
 
         SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
-
 
         CloseableHttpClient httpClient = HttpClients.custom()
                 .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)

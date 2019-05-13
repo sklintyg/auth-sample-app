@@ -18,14 +18,20 @@
  */
 package se.inera.intyg.authsampleapp.service.token;
 
+import org.springframework.security.saml.SAMLCredential;
+
 public interface TokenExchangeService {
 
     /**
      * Given a SAML response, exchange the underlying assertion for a JWT token.
      *
      * @param samlResponse
-     *      SAML response
+     *            SAML response
      * @return
      */
     String exchange(byte[] samlResponse);
+
+    String exchange2(SAMLCredential samlCredential);
+
+    String refresh(String refreshToken);
 }

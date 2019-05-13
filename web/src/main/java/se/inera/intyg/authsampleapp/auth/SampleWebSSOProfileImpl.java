@@ -42,6 +42,7 @@ import org.springframework.stereotype.Component;
  *
  * The client_id of the SP application needs to be present as an audience. E.g: If our client_id is "journalsystemet",
  * the conditions element needs to contain a corresponding audience restriction:
+ *
  * <pre>
  * {@code
  *  <saml2:Audience>https://idp.ineratest.org:443/saml</saml2:Audience>
@@ -57,11 +58,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SampleWebSSOProfileImpl extends org.springframework.security.saml.websso.WebSSOProfileImpl {
 
-    @Value("${oidc.rp.identity}")
-    private String oidcIdentity;
+    @Value("${client.id}")
+    private String rpIdentity;
 
-    @Value("${sakerhetstjanst.saml.idp.metadata.url}")
-    private String idpEntityId;
+    @Value("${oidc.op.identity}")
+    private String opEntityId;
 
     /**
      * Returns AuthnRequest SAML message to be used to demand authentication from an IDP described using
@@ -97,11 +98,11 @@ public class SampleWebSSOProfileImpl extends org.springframework.security.saml.w
     private Conditions buildConditions() {
         AudienceRestriction audienceRestriction = new AudienceRestrictionBuilder().buildObject();
         Audience audience = new AudienceBuilder().buildObject();
-        audience.setAudienceURI(idpEntityId);
+        audience.setAudienceURI(opEntityId);
         audienceRestriction.getAudiences().add(audience);
 
         Audience audience2 = new AudienceBuilder().buildObject();
-        audience2.setAudienceURI(oidcIdentity);
+        audience2.setAudienceURI(rpIdentity);
         audienceRestriction.getAudiences().add(audience2);
 
         Conditions conditions = new ConditionsBuilder().buildObject();

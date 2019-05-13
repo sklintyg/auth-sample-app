@@ -18,6 +18,7 @@
  */
 package se.inera.intyg.authsampleapp.service.token;
 
+import org.opensaml.xml.util.XMLHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.saml.SAMLCredential;
+import org.springframework.security.saml.util.SAMLUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -44,6 +47,7 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
     private static final String CLIENT_SECRET = "client_secret";
     private static final String GRANT_TYPE = "grant_type";
     private static final String ASSERTION = "assertion";
+    private static final String RESRESH_TOKEN = "refresh_token";
 
     @Value("${token.exchange.endpoint.url}")
     private String tokenExchangeEndpointUrl;
@@ -61,6 +65,32 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
     private TokenTransformService tokenTransformService;
 
     @Override
+    public String exchange2(SAMLCredential samlCredential) {
+
+        try {
+
+            String assertionString = XMLHelper.nodeToString(SAMLUtil.marshallMessage(samlCredential.getAuthenticationAssertion()));
+            String assertion = Base64.getEncoder().encodeToString(assertionString.getBytes(Charset.forName("UTF-8")));
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.add(CLIENT_ID, clientId);
+            map.add(CLIENT_SECRET, clientSecret);
+            map.add(GRANT_TYPE, BEARER_VALUE);
+            map.add(ASSERTION, assertion);
+
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+            ResponseEntity<String> response = restTemplate.postForEntity(tokenExchangeEndpointUrl, request, String.class);
+            return response.getBody();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
     public String exchange(byte[] samlResponse) {
 
         try {
@@ -76,6 +106,28 @@ public class TokenExchangeServiceImpl implements TokenExchangeService {
             map.add(CLIENT_SECRET, clientSecret);
             map.add(GRANT_TYPE, BEARER_VALUE);
             map.add(ASSERTION, assertion);
+
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+            ResponseEntity<String> response = restTemplate.postForEntity(tokenExchangeEndpointUrl, request, String.class);
+            return response.getBody();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public String refresh(String refreshToken) {
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.add(CLIENT_ID, clientId);
+            map.add(CLIENT_SECRET, clientSecret);
+            map.add(GRANT_TYPE, RESRESH_TOKEN);
+            map.add(RESRESH_TOKEN, refreshToken);
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 

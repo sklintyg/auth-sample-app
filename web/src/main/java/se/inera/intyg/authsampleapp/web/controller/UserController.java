@@ -24,9 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.saml.SAMLCredential;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import se.inera.intyg.authsampleapp.auth.UserModel;
 import se.inera.intyg.authsampleapp.service.token.TokenExchangeService;
 import se.inera.intyg.authsampleapp.web.controller.dto.UserModelResponse;
@@ -62,13 +62,38 @@ public class UserController {
                 .build();
     }
 
+    @RequestMapping(value = "/refresh", method = GET, produces = "application/json")
+    public UserModelResponse refresh() {
+        if (!isAuthenticated()) {
+            throw new IllegalStateException("Cannot refresh token without logging in first.");
+        }
+        UserModel userModel = (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userModel.getRefreshToken() == null) {
+            throw new IllegalStateException("Cannot refresh token without having a refresh token first.");
+        }
+        return getUserModelResponse(userModel, tokenExchangeService.refresh(userModel.getRefreshToken()));
+    }
+
     @RequestMapping(value = "/exchange", method = GET, produces = "application/json")
     public UserModelResponse exchange() {
         if (!isAuthenticated()) {
             throw new IllegalStateException("Cannot initiate token exchange without logging in first.");
         }
         UserModel userModel = (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String token = tokenExchangeService.exchange(userModel.getSamlAuthentication());
+        return getUserModelResponse(userModel, tokenExchangeService.exchange(userModel.getSamlAuthentication()));
+    }
+
+    @RequestMapping(value = "/exchange2", method = GET, produces = "application/json")
+    public UserModelResponse exchange2() {
+        if (!isAuthenticated()) {
+            throw new IllegalStateException("Cannot initiate token exchange without logging in first.");
+        }
+        SAMLCredential samlCredential = (SAMLCredential) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+        UserModel userModel = (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return getUserModelResponse(userModel, tokenExchangeService.exchange2(samlCredential));
+    }
+
+    private UserModelResponse getUserModelResponse(UserModel userModel, String token) {
         try {
             JsonNode jsonNode = new ObjectMapper().readTree(token);
             userModel.setAccessToken(jsonNode.get("access_token").textValue());

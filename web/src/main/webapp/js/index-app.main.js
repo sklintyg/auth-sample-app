@@ -27,7 +27,6 @@ angular.module('indexApp')
         $scope.user = {};
         $scope.loggedIn = false;
 
-
         $scope.fields = [
             {
                 id: 'certId',
@@ -131,10 +130,10 @@ angular.module('indexApp')
         function loadConfig() {
             $http.get('/api/config', null).then(function(response) {
                 $scope.config = response.data;
-            })
+            });
         }
 
-         function loadUser() {
+        function loadUser() {
             $http.get('/api/user', null).then(function(response) {
                 if (response.data.authenticated) {
                     $scope.user = response.data.userModel;
@@ -149,8 +148,13 @@ angular.module('indexApp')
         loadUser();
 
         $scope.exchangeToken = function() {
-            $http.get('/api/user/exchange').then(function(response) {
-                $scope.token = response.data.userModel.token;
+            $http.get('/api/user/exchange2').then(function(response) {
+                loadUser();
+            });
+        };
+
+        $scope.refreshAccessToken = function() {
+            $http.get('/api/user/refresh').then(function(response) {
                 loadUser();
             });
         };
@@ -159,26 +163,47 @@ angular.module('indexApp')
             return $scope.user.accessToken;
         };
 
-         $scope.loginDjupintegration = function() {
-              try {
-                  var url = $scope.config.webcertUrl + '/oauth/token';
+        $scope.loginDjupintegration = function() {
+            try {
+                var url = $scope.config.webcertUrl + '/oauth/token/edit';
 
-                  var data = [];
-                  angular.forEach($scope.fields, function(value) {
-                      if( value.disabled !== true) {
-                          data.push({
-                              id: value.id,
-                              data: value.model
-                          });
-                      }
-                  });
+                var data = [];
+                angular.forEach($scope.fields, function(value) {
+                    if (value.disabled !== true) {
+                        data.push({
+                            id: value.id,
+                            data: value.model
+                        });
+                    }
+                });
 
-                  // submit data
-                  sendData(url, data);
-              } catch(e) {
-                  alert(e);
-              }
-          };
+                // submit data
+                sendData(url, data);
+            } catch (e) {
+                alert(e);
+            }
+        };
+
+        $scope.loginReadonly = function() {
+            try {
+                var url = $scope.config.webcertUrl + '/oauth/token/read';
+
+                var data = [];
+                angular.forEach($scope.fields, function(value) {
+                    if (value.disabled !== true) {
+                        data.push({
+                            id: value.id,
+                            data: value.model
+                        });
+                    }
+                });
+
+                // submit data
+                sendData(url, data);
+            } catch (e) {
+                alert(e);
+            }
+        };
 
         function sendData(url, data) {
             var form = document.createElement('form');
@@ -194,14 +219,14 @@ angular.module('indexApp')
 
             angular.forEach(data, function(row) {
                 var node = document.createElement('input');
-                node.name  = row.id;
+                node.name = row.id;
                 node.value = row.data === undefined ? '' : row.data.toString();
 
                 form.appendChild(node);
             });
 
             // To be sent, the form needs to be attached to the main document.
-            form.style.display = "none";
+            form.style.display = 'none';
             document.body.appendChild(form);
 
             form.submit();
